@@ -1,0 +1,6 @@
+
+Track      |   License URL
+----------------------------------------------
+ 01        |   http://creativecommons.org/licenses/by-nc-sa/2.5/
+ 02        |   http://creativecommons.org/licenses/by-nc-sa/2.5/
+ artwork   |   http://creativecommons.org/licenses/by-nc-sa/2.5/

@@ -1,0 +1,179 @@
+/**
+	Pixia - Projet C ESIAL 1A
+	--------------------------
+
+	boucleMenu.c : Boucle d'affichage du menu
+
+	Date : 20/03/08
+	Author : Gaétan Schmitt, Brice Ambrosiak
+*/
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+
+#include <FMOD/fmod.h>
+
+
+/**
+	Affichage du menu & interactions
+*/
+char boucleMenu(SDL_Surface *ecran,
+                SDL_Surface *fondMenu,
+                SDL_Surface *nouvPart,
+                SDL_Surface *chargPart,
+                SDL_Surface *options,
+                SDL_Surface *curseur,
+                SDL_Rect p_fondMenu,
+                SDL_Rect p_nouvPart,
+                SDL_Rect p_chargPart,
+                SDL_Rect p_options)
+{
+    //---DECLARATIONS-------------------------------------------------
+    enum {RES_800, RES_1024}; 				// Résolutions disponibles
+	enum {NEW_GAME, LOAD_GAME, OPTIONS};	// Boutons
+
+    SDL_Rect p_curseur;
+    SDL_Event event;
+	FSOUND_SAMPLE *clic;
+    int posButtons[2][3][4];
+    int iRes = 0;
+    char continuer=1, select=4, echap=0, son=0;
+
+	// Indice du tableau en fonction de la résolution
+    switch (ecran->w) {
+    	case 800: iRes = RES_800; break;
+    	case 1024: iRes = RES_1024; break;
+    	case 1280: iRes = RES_1024; break; // Idem que 1024, avec bords noirs
+    	default:
+			fprintf(stderr, "Erreur @ boucleMenu.c");
+			exit(EXIT_FAILURE);
+    }
+
+	// Initialisations positions
+	posButtons[RES_800][NEW_GAME][0] = 267;
+	posButtons[RES_800][NEW_GAME][1] = 542;
+	posButtons[RES_800][NEW_GAME][2] = 214;
+	posButtons[RES_800][NEW_GAME][3] = 253;
+	posButtons[RES_800][LOAD_GAME][0] = 276;
+	posButtons[RES_800][LOAD_GAME][1] = 524;
+	posButtons[RES_800][LOAD_GAME][2] = 264;
+	posButtons[RES_800][LOAD_GAME][3] = 305;
+	posButtons[RES_800][OPTIONS][0] = 335;
+	posButtons[RES_800][OPTIONS][1] = 472;
+	posButtons[RES_800][OPTIONS][2] = 319;
+	posButtons[RES_800][OPTIONS][3] = 356;
+    posButtons[RES_1024][NEW_GAME][0] = 337;
+	posButtons[RES_1024][NEW_GAME][1] = 692;
+	posButtons[RES_1024][NEW_GAME][2] = 271;
+	posButtons[RES_1024][NEW_GAME][3] = 325;
+	posButtons[RES_1024][LOAD_GAME][0] = 350;
+	posButtons[RES_1024][LOAD_GAME][1] = 674;
+	posButtons[RES_1024][LOAD_GAME][2] = 340;
+	posButtons[RES_1024][LOAD_GAME][3] = 389;
+	posButtons[RES_1024][OPTIONS][0] = 430;
+	posButtons[RES_1024][OPTIONS][1] = 603;
+	posButtons[RES_1024][OPTIONS][2] = 409;
+	posButtons[RES_1024][OPTIONS][3] = 455;
+
+
+    clic = FSOUND_Sample_Load(FSOUND_FREE, "sons/clic.wav", 0, 0, 0);
+
+    //----------------------------------------------------------------
+    //Premier affichage:
+    p_curseur.x = 0;
+    p_curseur.y = 0;
+
+    SDL_BlitSurface(fondMenu, NULL, ecran, &p_fondMenu);
+    SDL_Flip(ecran);
+
+    //-----------------------------------------------------------------
+    //Boucle Menu
+
+    while(continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                continuer=0;
+                break;
+
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:
+                        continuer=0;
+                        echap=1;
+                        break;
+                }
+                break;
+
+            case SDL_MOUSEMOTION:
+                p_curseur.x = event.motion.x;
+                p_curseur.y = event.motion.y;
+                break;
+
+            case SDL_MOUSEBUTTONUP:
+                if(event.button.button==SDL_BUTTON_LEFT && select!=4)
+                    continuer = 0;
+                    FSOUND_PlaySound(FSOUND_FREE, clic);
+                break;
+        }
+
+		// Affichage du fond
+        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
+        SDL_BlitSurface(fondMenu, NULL, ecran, &p_fondMenu);
+        select = 4;
+
+        //Test bouton actif------------
+        if(p_curseur.x > (posButtons[iRes][NEW_GAME][0] + 128)
+		&& p_curseur.x < (posButtons[iRes][NEW_GAME][1] + 128))
+            if(p_curseur.y > (posButtons[iRes][NEW_GAME][2] + 16)
+			&& p_curseur.y < (posButtons[iRes][NEW_GAME][3] + 16))
+			{
+                SDL_BlitSurface(nouvPart, NULL, ecran, &p_nouvPart);
+                    select = 1;
+                    if(son!=1){
+                        FSOUND_PlaySound(FSOUND_FREE, clic);
+                        son = 1;
+                    }
+            }
+        if(p_curseur.x > (posButtons[iRes][LOAD_GAME][0] + 128)
+        && p_curseur.x < (posButtons[iRes][LOAD_GAME][1] + 128))
+            if(p_curseur.y > (posButtons[iRes][LOAD_GAME][2] + 16)
+            && p_curseur.y < (posButtons[iRes][LOAD_GAME][3] + 16))
+            {
+                SDL_BlitSurface(chargPart, NULL, ecran, &p_chargPart);
+                    select = 2;
+                    if(son!=2){
+                        FSOUND_PlaySound(FSOUND_FREE, clic);
+                        son = 2;
+                    }
+            }
+        if(p_curseur.x > (posButtons[iRes][OPTIONS][0] + 128)
+        && p_curseur.x < (posButtons[iRes][OPTIONS][1] + 128))
+            if(p_curseur.y > (posButtons[iRes][OPTIONS][2] + 16)
+            && p_curseur.y < (posButtons[iRes][OPTIONS][3] + 16))
+            {
+                SDL_BlitSurface(options, NULL, ecran, &p_options);
+                    select = 3;
+                    if(son!=3){
+                        FSOUND_PlaySound(FSOUND_FREE, clic);
+                        son = 3;
+                    }
+            }
+
+        SDL_BlitSurface(curseur, NULL, ecran, &p_curseur);
+        SDL_Flip(ecran);
+    }
+
+    if(echap) select = 4;
+
+    FSOUND_Sample_Free(clic);
+    return select;
+}
+
+
+

@@ -1,0 +1,26 @@
+/**
+	Pixia - Projet C ESIAL 1A
+	--------------------------
+
+	boucleMenu.h : Header
+
+	Date : 20/03/08
+	Author : Gaétan Schmitt, Brice Ambrosiak
+*/
+
+#ifndef DEF_BOUCLEMENU
+#define DEF_BOUCLEMENU
+
+char boucleMenu(SDL_Surface *ecran,
+                SDL_Surface *fondMenu,
+                SDL_Surface *nouvPart,
+                SDL_Surface *chargPart,
+                SDL_Surface *options,
+                SDL_Surface *curseur,
+                SDL_Rect p_fondMenu,
+                SDL_Rect p_nouvPart,
+                SDL_Rect p_chargPart,
+                SDL_Rect p_options);
+#endif
+
+
