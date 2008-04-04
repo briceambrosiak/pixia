@@ -1,0 +1,14 @@
+// Pour Pixia par Gaétan Schmitt le 21/03/08
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+
+#include <FMOD/fmod.h>
+
+#include "boucleNouvP.h"
+
+
+

@@ -1,0 +1,7 @@
+# résolution : hauteur puis largeur
+1280
+800
+# profondeur des couleurs (en bits)
+32
+# volume (en pourcentage)
+0

@@ -1,0 +1,8 @@
+18/03/08 : 3h -> conception -> choix de carte version image.
+
+19/03/08 : 1h -> conception -> images
+	   2h -> codage
+
+20/03/08 : 2h -> Organisation du code
+	   4h -> codage
+

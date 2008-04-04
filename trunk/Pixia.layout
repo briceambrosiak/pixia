@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_layout_file>
+<CodeBlocks_layout_file>
+	<File name="constants.h" open="1" top="0">
+		<Cursor position="1053" topLine="0"/>
+	</File>
+	<File name="ecranOptions.c" open="1" top="0">
+		<Cursor position="8156" topLine="192"/>
+	</File>
+	<File name="ecranOptions.h" open="0" top="0">
+		<Cursor position="600" topLine="0"/>
+	</File>
+	<File name="main.c" open="1" top="0">
+		<Cursor position="1154" topLine="44"/>
+	</File>
+	<File name="map.c" open="1" top="0">
+		<Cursor position="46" topLine="0"/>
+	</File>
+	<File name="map.h" open="1" top="1">
+		<Cursor position="324" topLine="13"/>
+	</File>
+	<File name="menu.c" open="0" top="0">
+		<Cursor position="321" topLine="0"/>
+	</File>
+	<File name="menu.h" open="0" top="0">
+		<Cursor position="323" topLine="0"/>
+	</File>
+	<File name="nouvellePartie.c" open="0" top="0">
+		<Cursor position="274" topLine="0"/>
+	</File>
+	<File name="nouvellePartie.h" open="0" top="0">
+		<Cursor position="3" topLine="0"/>
+	</File>
+	<File name="options.c" open="0" top="0">
+		<Cursor position="173" topLine="85"/>
+	</File>
+	<File name="options.h" open="0" top="0">
+		<Cursor position="79" topLine="0"/>
+	</File>
+	<File name="ressources.rc" open="0" top="0">
+		<Cursor position="15" topLine="0"/>
+	</File>
+	<Expand folder="/Headers"/>
+</CodeBlocks_layout_file>
