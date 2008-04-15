@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     ecran = SDL_SetVideoMode(o_largeur,o_hauteur,o_couleur,
             SDL_HWSURFACE | SDL_FULLSCREEN | SDL_DOUBLEBUF);
     SDL_WM_SetCaption(GAME_NAME, NULL);
-    SDL_ShowCursor(SDL_DISABLE);
+    //SDL_ShowCursor(SDL_DISABLE);
 
     //--------------------------------------------------------------
     // Lancement menu principal
