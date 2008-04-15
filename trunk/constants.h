@@ -27,6 +27,8 @@
 #define FILE_TILE_GRASS		"images/tiles/tile_grass.png"
 #define FILE_TILE_WATER		"images/tiles/tile_water.png"
 #define FILE_TILE_FOREST	"images/tiles/tile_forest.png"
+#define FILE_TILE_CURSOR    "images/tiles/tile_cursor.png"
+#define FILE_TILE_WIREFRAME	"images/tiles/tile_wireframe.png"
 
 #define FILE_BG_OPTIONS		"images/backgrounds/fond_options.jpg"
 #define FILE_BG_OPTIONS_P	"images/backgrounds/fond_optionsP.jpg"
@@ -58,6 +60,8 @@
 // Constantes tiles
 #define TILE_WIDTH 			30
 #define TILE_HEIGHT 		30
+#define TILE_OFFSET_X       0
+#define TILE_OFFSET_Y       0
 #define TILE_SPACE 			6
 #define TILE_BLANK_SPACE 	15
 

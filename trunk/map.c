@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include <SDL/SDL_image.h>
 
 #include "map.h"
@@ -24,23 +25,39 @@ void startTestMap(SDL_Surface *screen)
 	SDL_Surface *tileGrass,
 				*tileWater,
 				*tileForest,
+				*tileCursor,
+				*tileWireframe,
 				*tileToBlit,
 				*cursor = NULL;
-	SDL_Rect p_tile, p_cursor;
+    SDL_Surface *textSurface;
+	SDL_Rect p_tile, p_cursor, p_font, p_tileCursor;
 	SDL_Event event;
+	SDL_Color fontColor = {128,128,128};
 	Map map;
+	TTF_Font *font;
 	int continuer = 1, i = 0,  j= 0;
+	int curX = 0, curY = 0;
+	char textBuffer[256];
 
 	srand(time(NULL));
 
+    TTF_Init();
+    font = TTF_OpenFont("verdana.ttf", 10);
+    //font = TTF_OpenFont("courier.ttf", 10);
 	map = getTestMap(20, 40);
 
 	tileGrass = IMG_Load(FILE_TILE_GRASS);
 	tileWater = IMG_Load(FILE_TILE_WATER);
 	tileForest = IMG_Load(FILE_TILE_FOREST);
-	cursor = IMG_Load(FILE_CURSOR_ARROW);
+	tileCursor = IMG_Load(FILE_TILE_CURSOR);
+	tileWireframe = IMG_Load(FILE_TILE_WIREFRAME);
+	//cursor = IMG_Load(FILE_CURSOR_ARROW);
 	p_cursor.x = 0;
     p_cursor.y = 0;
+    p_font.x = 0;
+    p_font.y = 0;
+    p_tileCursor.x = 0;
+    p_tileCursor.y = 0;
 
     SDL_EnableKeyRepeat(300, 100);
 
@@ -56,6 +73,11 @@ void startTestMap(SDL_Surface *screen)
 			case SDL_MOUSEMOTION:
                 p_cursor.x = event.motion.x;
                 p_cursor.y = event.motion.y;
+
+                // Calcule les coordonnées du tile que l'on survole
+                curY = p_cursor.y / TILE_HEIGHT;
+                curX = (p_cursor.x - TILE_SPACE*(map.ground.height-curY-1)) / (TILE_WIDTH-TILE_SPACE);
+
                 break;
 
             case SDL_KEYDOWN:
@@ -85,8 +107,10 @@ void startTestMap(SDL_Surface *screen)
 			for (j=0 ; j<map.ground.width ; j++)
 			{
 				// Calcul position tile
-				p_tile.x = j * TILE_WIDTH - TILE_SPACE*j + (map.ground.height-i)*TILE_SPACE;
-				p_tile.y = i * TILE_HEIGHT;
+
+				// Largeur - décallage superposition + décallage inclinaison
+				p_tile.x = j*(TILE_WIDTH - TILE_SPACE) + (map.ground.height-i-1)*TILE_SPACE;
+				p_tile.y = i*TILE_HEIGHT;
 
 				switch (map.ground.ground[i*map.ground.height + j])
 				{
@@ -103,21 +127,44 @@ void startTestMap(SDL_Surface *screen)
 						break;
 				}
 
+                //tileToBlit = tileWireframe;
 				SDL_BlitSurface(tileToBlit, NULL, screen, &p_tile);
+
+				// Dessine le curseur de tile
+				p_tileCursor.x = curX*(TILE_WIDTH - TILE_SPACE) + (map.ground.height-curY-1)*TILE_SPACE;
+                p_tileCursor.y = curY*TILE_HEIGHT;
+				SDL_BlitSurface(tileCursor, NULL, screen, &p_tileCursor);
 			}
 		}
 
-		SDL_BlitSurface(cursor, NULL, screen, &p_cursor);
+        // Texte
+        sprintf(textBuffer, "Tile %3d,%3d | %3d | x: %5d", curX, curY, TILE_SPACE*(map.ground.height-curY), p_cursor.x);
+        textSurface = TTF_RenderText_Solid(font, textBuffer, fontColor);
+        if (!textSurface) {
+            fprintf(stderr, "Error initializing font @ map.c");
+        }
+        else {
+            p_font.x = screen->w - textSurface->w;
+            p_font.y = screen->h - textSurface->h;
+            SDL_BlitSurface(textSurface, NULL, screen, &p_font);
+            SDL_FreeSurface(textSurface);
+        }
+
+		//SDL_BlitSurface(cursor, NULL, screen, &p_cursor);
 
 		SDL_Flip(screen);
 	}
 
+    freeMap(map);
 	SDL_FreeSurface(tileGrass);
 	SDL_FreeSurface(tileWater);
 	SDL_FreeSurface(tileForest);
+	SDL_FreeSurface(tileWireframe);
+	SDL_FreeSurface(tileCursor);
 	SDL_FreeSurface(tileToBlit);
 	SDL_FreeSurface(cursor);
-	freeMap(map);
+	TTF_CloseFont(font);
+	TTF_Quit();
 }
 
 /**
