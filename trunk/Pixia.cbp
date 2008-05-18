@@ -6,7 +6,6 @@
 		<Option pch_mode="0" />
 		<Option compiler="gcc" />
 		<Build>
-			<Script file="lib_finder.script" />
 			<Target title="default">
 				<Option output="Pixia.exe" prefix_auto="0" extension_auto="0" />
 				<Option type="0" />
@@ -17,14 +16,22 @@
 		<VirtualTargets>
 			<Add alias="All" targets="default;" />
 		</VirtualTargets>
+		<Compiler>
+			<Add option="-O3" />
+			<Add option="-Wall" />
+		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
 			<Add library="SDLmain" />
 			<Add library="SDL" />
-			<Add library="C:\Program Files\CodeBlocks\lib\SDL_image.lib" />
+			<Add library="SDL_image" />
 			<Add library="libfmod.a" />
-			<Add library="C:\Program Files\CodeBlocks\lib\SDL_ttf.lib" />
+			<Add library="SDL_ttf" />
 		</Linker>
+		<Unit filename="chargement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="chargement.h" />
 		<Unit filename="constants.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -52,17 +59,16 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="options.h" />
+		<Unit filename="partie.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="partie.h" />
 		<Unit filename="ressources.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Extensions>
-			<envvars />
 			<code_completion />
 			<debugger />
-			<lib_finder disable_auto="1" />
-			<wxsmith version="1">
-				<gui name="wxWidgets" src="" main="" init_handlers="necessary" language="CPP" />
-			</wxsmith>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

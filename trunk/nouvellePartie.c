@@ -6,6 +6,24 @@
 
 	Date : 21/03/08
 	Author : Gaétan Schmitt, Brice Ambrosiak
+
+	Copyright 2008 Gaétan SCHMITT
+
+This file is part of Pixia.
+
+    Pixia is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    Pixia is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Pixia; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #include <stdlib.h>
@@ -18,13 +36,12 @@
 
 #include "constants.h"
 #include "nouvellePartie.h"
-#include "map.h"
+#include "chargement.h"
 
 void nouvellePartie(SDL_Surface *ecran)
 {
     //----DECLARATIONS-------------------------------------------
-    char ok, select;
-
+    char select;
 
     // Affichage menu nouvelle partie
 	select = loopNewGame(ecran);
@@ -33,13 +50,15 @@ void nouvellePartie(SDL_Surface *ecran)
     switch(select)
     {
         case B_EASY:
-			startTestMap(ecran);
+			startMap(ecran, 1);
             break;
 
         case B_NORMAL:
+            startMap(ecran, 2);
             break;
 
         case B_HARD:
+            startMap(ecran, 3);
             break;
 
 		// Retour écran précédent
@@ -67,7 +86,7 @@ char loopNewGame(SDL_Surface *ecran)
     // Déclarations Sons
     FSOUND_SAMPLE *clic;
     // Déclarations autres
-    char select, ok, son=0, continuer=1, echap=0;
+    char select=B_BACK, ok, son=0, continuer=1, echap=0;
     int iRes = 0, horSpace = 0, vertSpace = 0;
 	int posButtons[2][3][4];
 
@@ -130,7 +149,6 @@ char loopNewGame(SDL_Surface *ecran)
     //Affichage accueil nouvelle partie
     SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
     SDL_BlitSurface(fondNouvellePart, NULL, ecran, &p_fondNouvellePart);
-    SDL_BlitSurface(curseur, NULL, ecran, &p_curseur);
     SDL_Flip(ecran);
 
 
@@ -143,11 +161,13 @@ char loopNewGame(SDL_Surface *ecran)
                 continuer=0;
                 break;
 
-            case SDL_KEYDOWN:
+            case SDL_KEYUP:
                 switch(event.key.keysym.sym){
                     case SDLK_ESCAPE:
                         continuer=0;
                         echap=1;
+                        break;
+                    default:
                         break;
                 }
                 break;
@@ -158,9 +178,11 @@ char loopNewGame(SDL_Surface *ecran)
                 break;
 
             case SDL_MOUSEBUTTONUP:
-                if(event.button.button==SDL_BUTTON_LEFT && select!=4)
+                if(event.button.button==SDL_BUTTON_LEFT && select!=B_BACK)
                     continuer = 0;
                     FSOUND_PlaySound(FSOUND_FREE, clic);
+                break;
+            default:
                 break;
         }
         SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
@@ -168,10 +190,10 @@ char loopNewGame(SDL_Surface *ecran)
         select = B_BACK;
 
         //Test bouton actif------------
-        if(p_curseur.x > (posButtons[iRes][B_EASY][0] + horSpace)
-        && p_curseur.x < (posButtons[iRes][B_EASY][1] + horSpace))
-            if(p_curseur.y > (posButtons[iRes][B_EASY][2] + vertSpace)
-            && p_curseur.y < (posButtons[iRes][B_EASY][3] + vertSpace))
+        if(event.motion.x > (posButtons[iRes][B_EASY][0] + horSpace)
+        && event.motion.x < (posButtons[iRes][B_EASY][1] + horSpace))
+            if(event.motion.y > (posButtons[iRes][B_EASY][2] + vertSpace)
+            && event.motion.y < (posButtons[iRes][B_EASY][3] + vertSpace))
 		{
                 SDL_BlitSurface(facile, NULL, ecran, &p_facile);
 				select = B_EASY;
@@ -181,10 +203,10 @@ char loopNewGame(SDL_Surface *ecran)
 				}
 		}
 
-        if(p_curseur.x > (posButtons[iRes][B_NORMAL][0] + horSpace)
-		&& p_curseur.x < (posButtons[iRes][B_NORMAL][1] + horSpace))
-            if(p_curseur.y > (posButtons[iRes][B_NORMAL][2] + vertSpace)
-            && p_curseur.y < (posButtons[iRes][B_NORMAL][3] + vertSpace))
+        if(event.motion.x > (posButtons[iRes][B_NORMAL][0] + horSpace)
+		&& event.motion.x < (posButtons[iRes][B_NORMAL][1] + horSpace))
+            if(event.motion.y > (posButtons[iRes][B_NORMAL][2] + vertSpace)
+            && event.motion.y < (posButtons[iRes][B_NORMAL][3] + vertSpace))
 		{
 			SDL_BlitSurface(moyen, NULL, ecran, &p_moyen);
 			select = B_NORMAL;
@@ -194,10 +216,10 @@ char loopNewGame(SDL_Surface *ecran)
 			}
 		}
 
-        if(p_curseur.x > (posButtons[iRes][B_HARD][0] + horSpace)
-        && p_curseur.x < (posButtons[iRes][B_HARD][1] + horSpace))
-            if(p_curseur.y > (posButtons[iRes][B_HARD][2] + vertSpace)
-            && p_curseur.y < (posButtons[iRes][B_HARD][3] + vertSpace))
+        if(event.motion.x > (posButtons[iRes][B_HARD][0] + horSpace)
+        && event.motion.x < (posButtons[iRes][B_HARD][1] + horSpace))
+            if(event.motion.y > (posButtons[iRes][B_HARD][2] + vertSpace)
+            && event.motion.y < (posButtons[iRes][B_HARD][3] + vertSpace))
 		{
                 SDL_BlitSurface(dur, NULL, ecran, &p_dur);
 				select = B_HARD;
@@ -216,6 +238,7 @@ char loopNewGame(SDL_Surface *ecran)
 
     // Libération de mémoire
     FSOUND_Sample_Free(clic);
+
     SDL_FreeSurface(fondNouvellePart);
     SDL_FreeSurface(facile);
     SDL_FreeSurface(moyen);
