@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1206099964 c:\documents and settings\anémas\mes documents\code source\pixia\main.c
+1207255558 c:\documents and settings\anémas\mes documents\code source\pixia\main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -9,24 +9,28 @@
 	"menu.h"
 	"ecranOptions.h"
 	"nouvellePartie.h"
+	"constants.h"
 
-1206052969 c:\documents and settings\anémas\mes documents\code source\pixia\options.h
+1206577562 c:\documents and settings\anémas\mes documents\code source\pixia\options.h
 
-1206053293 c:\documents and settings\anémas\mes documents\code source\pixia\options.c
+1206702578 c:\documents and settings\anémas\mes documents\code source\pixia\options.c
 	<stdio.h>
 	<stdlib.h>
+	"constants.h"
+	"options.h"
 
-1205926274 c:\documents and settings\anémas\mes documents\code source\pixia\ressources.rc
+1205929876 c:\documents and settings\anémas\mes documents\code source\pixia\ressources.rc
 
-1206015429 c:\documents and settings\anémas\mes documents\code source\pixia\menu.h
+1209573015 c:\documents and settings\anémas\mes documents\code source\pixia\menu.h
 
-1206034639 c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
+1207309876 c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
-	"chargMenu.h"
-	"boucleMenu.h"
+	<FMOD/fmod.h>
+	"constants.h"
+	"menu.h"
 
 1206032253 c:\documents and settings\anémas\mes documents\code source\pixia\chargmenu.h
 
@@ -45,7 +49,7 @@
 	<SDL/SDL_image.h>
 	<FMOD/fmod.h>
 
-1206042333 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.h
+1206654218 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.h
 
 1206099132 c:\documents and settings\anémas\mes documents\code source\pixia\boucleop.c
 	<stdio.h>
@@ -60,25 +64,34 @@
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
 
-1206083739 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.c
+1206879096 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
-	"chargImOp.h"
-	"boucleOp.h"
+	<FMOD/fmod.h>
+	"constants.h"
+	"ecranOptions.h"
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
 
 1206049531 c:\documents and settings\anémas\mes documents\code source\pixia\chargimop.h
 
 1206050431 c:\documents and settings\anémas\mes documents\code source\pixia\boucleop.h
 
-1206088171 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.h
+1206637286 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.h
 
-1206089768 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
+1206879494 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"nouvellePartie.h"
+	"map.h"
 
 1206570918 d:\etudes\esial\csh\pixia\bouclemenu.c
 	<stdlib.h>
@@ -132,7 +145,7 @@
 
 1206050432 d:\etudes\esial\csh\pixia\boucleop.h
 
-1206900229 d:\etudes\esial\csh\pixia\main.c
+1206703391 d:\etudes\esial\csh\pixia\main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -165,7 +178,7 @@
 
 1206571433 d:\etudes\esial\csh\pixia\bouclemenu.h
 
-1206879492 d:\etudes\esial\csh\pixia\nouvellepartie.c
+1206700386 d:\etudes\esial\csh\pixia\nouvellepartie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -195,12 +208,27 @@
 1206700228 d:\etudes\esial\csh\pixia\map.h
 	<SDL/SDL.h>
 
-1208275212 d:\etudes\esial\csh\pixia\constants.h
+1206879532 d:\etudes\esial\csh\pixia\constants.h
 
 1206705223 d:\etudes\esial\csh\pixia\constants.c
 	"constants.h"
 
-1206879094 source:d:\etudes\esial\csh\pixia\ecranoptions.c
+1211041825 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
+
+1206705528 c:\documents and settings\anémas\mes documents\code source\pixia\map.c
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	"map.h"
+	"constants.h"
+
+1211039546 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
+	<SDL/SDL.h>
+
+1206705224 c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
+	"constants.h"
+
+1209513458 source:c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -208,32 +236,32 @@
 	<FMOD/fmod.h>
 	"constants.h"
 	"ecranOptions.h"
-	<stdio.h>
-	<stdlib.h>
-	<SDL/SDL.h>
-	<SDL/SDL_image.h>
-
-1207772140 source:d:\etudes\esial\csh\pixia\main.c
-	<stdlib.h>
-	<stdio.h>
-	<SDL/SDL.h>
-	<SDL/SDL_image.h>
-	<FMOD/fmod.h>
 	"options.h"
-	"menu.h"
-	"ecranOptions.h"
-	"nouvellePartie.h"
-	"constants.h"
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
 
-1208274688 source:d:\etudes\esial\csh\pixia\map.c
+1210796493 source:c:\documents and settings\anémas\mes documents\code source\pixia\main.c
+	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
+	<SDL/SDL_image.h>
 	<SDL/SDL_ttf.h>
-	<SDL/SDL_image.h>
+	<FMOD/fmod.h>
+	"options.h"
+	"menu.h"
+	"ecranOptions.h"
+	"nouvellePartie.h"
+	"constants.h"
+
+1211041378 source:c:\documents and settings\anémas\mes documents\code source\pixia\map.c
+	<stdlib.h>
+	<stdio.h>
 	"map.h"
 	"constants.h"
 
-1206879225 source:d:\etudes\esial\csh\pixia\menu.c
+1210014097 source:c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -242,7 +270,7 @@
 	"constants.h"
 	"menu.h"
 
-1206879492 source:d:\etudes\esial\csh\pixia\nouvellepartie.c
+1211031355 source:c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -250,16 +278,45 @@
 	<FMOD/fmod.h>
 	"constants.h"
 	"nouvellePartie.h"
-	"map.h"
+	"chargement.h"
 
-1206702577 source:d:\etudes\esial\csh\pixia\options.c
+1209517005 source:c:\documents and settings\anémas\mes documents\code source\pixia\options.c
 	<stdio.h>
 	<stdlib.h>
 	"constants.h"
 	"options.h"
 
-1205929876 source:d:\etudes\esial\csh\pixia\ressources.rc
+1205929876 source:c:\documents and settings\anémas\mes documents\code source\pixia\ressources.rc
 
-1206705223 source:d:\etudes\esial\csh\pixia\constants.c
+1206705224 source:c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
 	"constants.h"
+
+1211039980 c:\documents and settings\anémas\mes documents\code source\pixia\chargement.h
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	"map.h"
+
+1211041552 source:c:\documents and settings\anémas\mes documents\code source\pixia\chargement.c
+	<stdlib.h>
+	<stdio.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"chargement.h"
+	"partie.h"
+	"map.h"
+
+1211040456 source:c:\documents and settings\anémas\mes documents\code source\pixia\partie.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	<FMOD/fmod.h>
+	"partie.h"
+	"constants.h"
+	"chargement.h"
+
+1209561106 c:\documents and settings\anémas\mes documents\code source\pixia\partie.h
+	"chargement.h"
 

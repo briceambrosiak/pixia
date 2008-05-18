@@ -2,197 +2,76 @@
 	Pixia - Projet C ESIAL 1A
 	--------------------------
 
-	map.c : Gestion des cartes (chargement, sauvegarde, ...)
+	map.c : Fichier de la carte
 
-	Date : 26/03/08
+	Date : 17/05/08
 	Author : Gaétan Schmitt, Brice Ambrosiak
+
+	Copyright 2008 Gaétan SCHMITT
+
+This file is part of Pixia.
+
+    Pixia is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    Pixia is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Pixia; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+//Includes classiques
+#include <stdlib.h>
 #include <stdio.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_image.h>
 
+//Include du header
 #include "map.h"
-
 #include "constants.h"
 
-/**
-	Démarre un affichage de la map test
-*/
-void startTestMap(SDL_Surface *screen)
-{
-	SDL_Surface *tileGrass,
-				*tileWater,
-				*tileForest,
-				*tileCursor,
-				*tileWireframe,
-				*tileToBlit,
-				*cursor = NULL;
-    SDL_Surface *textSurface;
-	SDL_Rect p_tile, p_cursor, p_font, p_tileCursor;
-	SDL_Event event;
-	SDL_Color fontColor = {128,128,128};
-	Map map;
-	TTF_Font *font;
-	int continuer = 1, i = 0,  j= 0;
-	int curX = 0, curY = 0;
-	char textBuffer[256];
-
-	srand(time(NULL));
-
-    TTF_Init();
-    font = TTF_OpenFont("verdana.ttf", 10);
-    //font = TTF_OpenFont("courier.ttf", 10);
-	map = getTestMap(20, 40);
-
-	tileGrass = IMG_Load(FILE_TILE_GRASS);
-	tileWater = IMG_Load(FILE_TILE_WATER);
-	tileForest = IMG_Load(FILE_TILE_FOREST);
-	tileCursor = IMG_Load(FILE_TILE_CURSOR);
-	tileWireframe = IMG_Load(FILE_TILE_WIREFRAME);
-	//cursor = IMG_Load(FILE_CURSOR_ARROW);
-	p_cursor.x = 0;
-    p_cursor.y = 0;
-    p_font.x = 0;
-    p_font.y = 0;
-    p_tileCursor.x = 0;
-    p_tileCursor.y = 0;
-
-    SDL_EnableKeyRepeat(300, 100);
-
-	while (continuer)
-	{
-		SDL_WaitEvent(&event);
-        switch(event.type)
-        {
-            case SDL_QUIT:
-                continuer = 0;
-                break;
-
-			case SDL_MOUSEMOTION:
-                p_cursor.x = event.motion.x;
-                p_cursor.y = event.motion.y;
-
-                // Calcule les coordonnées du tile que l'on survole
-                curY = p_cursor.y / TILE_HEIGHT;
-                curX = (p_cursor.x - TILE_SPACE*(map.ground.height-curY-1)) / (TILE_WIDTH-TILE_SPACE);
-
-                break;
-
-            case SDL_KEYDOWN:
-                switch(event.key.keysym.sym){
-                    case SDLK_ESCAPE:
-                        continuer = 0;
-                        break;
-
-					case SDLK_SPACE:
-						freeMap(map);
-						map = getTestMap(20, 40);
-						break;
-                }
-                break;
-        }
-
-
-		//SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0,0,0));
-		SDL_FillRect(screen, NULL, COLOR_BLACK(screen));
-
-		p_tile.x = 0;
-		p_tile.y = 0;
-
-		// Mise à jour des tiles
-		for (i=0 ; i<map.ground.height ; i++)
-		{
-			for (j=0 ; j<map.ground.width ; j++)
-			{
-				// Calcul position tile
-
-				// Largeur - décallage superposition + décallage inclinaison
-				p_tile.x = j*(TILE_WIDTH - TILE_SPACE) + (map.ground.height-i-1)*TILE_SPACE;
-				p_tile.y = i*TILE_HEIGHT;
-
-				switch (map.ground.ground[i*map.ground.height + j])
-				{
-					case GRASS:
-						tileToBlit = tileGrass;
-						break;
-
-					case WATER:
-						tileToBlit = tileWater;
-						break;
-
-					case FOREST:
-						tileToBlit = tileForest;
-						break;
-				}
-
-                //tileToBlit = tileWireframe;
-				SDL_BlitSurface(tileToBlit, NULL, screen, &p_tile);
-
-				// Dessine le curseur de tile
-				p_tileCursor.x = curX*(TILE_WIDTH - TILE_SPACE) + (map.ground.height-curY-1)*TILE_SPACE;
-                p_tileCursor.y = curY*TILE_HEIGHT;
-				SDL_BlitSurface(tileCursor, NULL, screen, &p_tileCursor);
-			}
-		}
-
-        // Texte
-        sprintf(textBuffer, "Tile %3d,%3d | %3d | x: %5d", curX, curY, TILE_SPACE*(map.ground.height-curY), p_cursor.x);
-        textSurface = TTF_RenderText_Solid(font, textBuffer, fontColor);
-        if (!textSurface) {
-            fprintf(stderr, "Error initializing font @ map.c");
-        }
-        else {
-            p_font.x = screen->w - textSurface->w;
-            p_font.y = screen->h - textSurface->h;
-            SDL_BlitSurface(textSurface, NULL, screen, &p_font);
-            SDL_FreeSurface(textSurface);
-        }
-
-		//SDL_BlitSurface(cursor, NULL, screen, &p_cursor);
-
-		SDL_Flip(screen);
-	}
-
-    freeMap(map);
-	SDL_FreeSurface(tileGrass);
-	SDL_FreeSurface(tileWater);
-	SDL_FreeSurface(tileForest);
-	SDL_FreeSurface(tileWireframe);
-	SDL_FreeSurface(tileCursor);
-	SDL_FreeSurface(tileToBlit);
-	SDL_FreeSurface(cursor);
-	TTF_CloseFont(font);
-	TTF_Quit();
-}
 
 /**
 	Charge une map test (herbe uniquement)
 */
-Map getTestMap(int height, int width)
+Map getMap(int difficulty)
 {
-	int i, r;
+    //DECLARATION---------------------
+    int height, width;
 	Map map;
 	Ground ground;
+	//------------------------------
+
+    switch(difficulty){
+        case 1:
+            height = 20;
+            width = 40;
+            map.name = "Facile";
+            break;
+        case 2:
+            height = 40;
+            width = 80;
+            map.name = "Moyen";
+            break;
+        case 3:
+            height = 80;
+            width = 160;
+            map.name = "Difficil";
+            break;
+        default:
+            fprintf(stderr, "Erreur de choix de taille de map [map.c : getMap]");
+            exit(EXIT_FAILURE);
+            break;
+    }
 
 	ground.height = height;
 	ground.width = width;
 	ground.ground = malloc(ground.height * ground.width * sizeof(GroundTile));
 
-	for (i=0 ; i<ground.height*ground.width ; i++)
-	{
-		r = rand() % 100;
-
-		if (r >= 0 && r < 70)
-			ground.ground[i] = GRASS;
-		else if (r >= 70 && r < 90)
-			ground.ground[i] = WATER;
-		else
-			ground.ground[i] = FOREST;
-	}
-
-	map.name = "test";
 	map.entities = NULL;
 	map.ground = ground;
 
@@ -207,6 +86,7 @@ void freeMap(Map map)
 	free(map.ground.ground);
 }
 
+
 /**
 	Charge un terrain de jeu à partir d'un nom de fichier
 */
@@ -214,16 +94,64 @@ Map loadMap(char* filename)
 {
 	FILE* file;
 	Map map;
+	int i = 0;
 
 	file = fopen(filename, "r");
 
 	// Si impossible d'ouvrir le fichier
-	if (file == NULL) return map;
+	if (file == NULL)
+        fprintf(stderr, "Can't load map @ map.c");
 
-	// Chargement terrain
-	/// TODO : chargement terrain
+    // Lecture infos terrain
+    //fread(&map.ground.width, sizeof(int), 1, file);
+    //fread(&map.ground.height, sizeof(int), 1, file);
+    //fscanf(fichier, "%ld %ld %ld", &score[0], &score[1], &score[2]);
+    fscanf(file, "<%d>", &map.ground.width);
+    fscanf(file, "<%d>", &map.ground.height);
+
+
+    //map.ground.ground = malloc(map.ground.width * map.ground.height * sizeof(int));
+    map.ground.ground = malloc(map.ground.width * map.ground.height * sizeof(int));
+
+    // Lecture tiles terrain
+	for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        //fread(&map.ground.ground[i], sizeof(int), 1, file);
+        fscanf(file, "[%d]\n", &map.ground.ground[i]);
+	}
 
 	fclose(file);
 
 	return map;
+}
+
+/**
+	Sauvegarde la carte passée en paramètre dans le fichier spécifié
+*/
+int saveMap(Map map, char* filename)
+{
+	FILE* file;
+	int i = 0;
+
+	file = fopen(filename, "w+");
+
+	// Si impossible d'écrire le fichier
+	if (file == NULL) return -1;
+
+	// Sauvegarde terrain
+
+    // Ecriture infos terrain
+    //fwrite(&map.ground.width, sizeof(int), 1, file);
+    //fwrite(&map.ground.height, sizeof(int), 1, file);
+    fprintf(file, "<%d>", map.ground.width);
+    fprintf(file, "<%d>", map.ground.height);
+
+	// Ecriture tiles terrain
+	for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        //fwrite(&map.ground.ground[i], sizeof(int), 1, file);
+        fprintf(file, "[%d]\n", map.ground.ground[i]);
+	}
+
+	fclose(file);
+
+	return 1;
 }
