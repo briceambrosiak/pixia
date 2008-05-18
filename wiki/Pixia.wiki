@@ -11,6 +11,6 @@ But there are many dangerous monsters whose want to destroy your work...
 
 = Details =
 
-* This software is developped in C language and use the SDL library (graphics).
+ * This software is developped in C language and use the SDL library (graphics).
 
-* It has a map editor.
+ * It has a map editor.
