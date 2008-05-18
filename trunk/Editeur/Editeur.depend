@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1211043216 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\ressource.rc
+
+1211071710 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\main.c
+	"librairie.h"
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	"constants.h"
+	"biblio.h"
+	"carte.h"
+
+1211071133 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.h
+	"biblio.h"
+
+1211068371 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\constants.h
+
+1211071102 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.c
+	<stdlib.h>
+	<stdio.h>
+	"librairie.h"
+	"biblio.h"
+	"constants.h"
+
+1211045339 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\fonction.h
+
+1211045874 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\caca.h
+
+1211045903 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\caca.c
+	<stdio.h>
+	<stdlib.h>
+	"librairie.h"
+	"constants.h"
+
+1211069741 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\biblio.h
+	<SDL/SDL.h>
+
+1211069523 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.c
+	<stdlib.h>
+	<stdio.h>
+	"carte.h"
+
+1211069494 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
+
