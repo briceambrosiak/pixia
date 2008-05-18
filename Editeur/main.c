@@ -609,11 +609,51 @@ int main(int argc, char *argv[]){
     sscanf(rep2, "%d", &hauteur);
     sscanf(rep3, "%d", &largeur);
 
+    ok = 0;
+
     //Verification de respect des limites
-    if(hauteur>50 || hauteur<10)
+    if(hauteur>50 || hauteur<10){
         hauteur = 20;
-    if(largeur>100 || largeur<10)
+        ok = 1;
+    }
+    if(largeur>100 || largeur<10){
         largeur = 40;
+        ok = 1;
+    }
+
+    //Par defaut si mal renseigne
+    if(ok){
+        SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
+
+        WRITETXT(ecran, "Editeur de Pixia", berlinG, bleute, p_titre);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [5]<--", berlinM, bleute, p_entete);
+        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", berlinP, bleute, p_q1);
+        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", berlinP, bleute, p_q2);
+
+        //Réponses
+        WRITETXT(ecran, "valeur par defaut(20)", berlinP, bleute, p_r3);
+        WRITETXT(ecran, "valeur par defaut(40)", berlinP, bleute, p_r2);
+        SDL_Flip(ecran);
+        SDL_Delay(1000);
+
+        WRITETXT(ecran, "--> MAL RENSEIGNE [4]<--  ", berlinM, bleute, p_entete);
+        SDL_Flip(ecran);
+        SDL_Delay(1000);
+
+        WRITETXT(ecran, "--> MAL RENSEIGNE [3]<--  ", berlinM, bleute, p_entete);
+        SDL_Flip(ecran);
+        SDL_Delay(1000);
+
+        WRITETXT(ecran, "--> MAL RENSEIGNE [2]<--  ", berlinM, bleute, p_entete);
+        SDL_Flip(ecran);
+        SDL_Delay(1000);
+
+        WRITETXT(ecran, "--> MAL RENSEIGNE [1]<--  ", berlinM, bleute, p_entete);
+        SDL_Flip(ecran);
+        SDL_Delay(1000);
+    }
+
+    ///TODO : SUITE
 
     // Suppression de mémoire et stop module
 
