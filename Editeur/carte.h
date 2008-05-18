@@ -31,6 +31,9 @@ This file is part of Pixia.
 #ifndef CARTE_H_INCLUDED
 #define CARTE_H_INCLUDED
 
+#include <SDL/SDL.h>
+#include "biblio.h"
 
+void editer(SDL_Surface *ecran, Info info);
 
 #endif // CARTE_H_INCLUDED

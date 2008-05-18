@@ -52,12 +52,11 @@ Map getMap(int larg, int haut);
 
 int main(int argc, char *argv[]){
  //--------------DECLARATIONS---------------------------------
+    Info info;
     SDL_Event event;
     SDL_Surface *ecran;
     SDL_Rect p_titre, p_entete, p_q1, p_q2, p_q3, p_r1, p_r2, p_r3;
-    SDL_Color bleute = {190, 190, 250};
-    TTF_Font *berlinP = NULL, *berlinM = NULL, *berlinG = NULL;
-    int o_largeur, o_hauteur, o_couleur, o_volume, i=0, largeur=0, hauteur=0; // Options de jeu (lues d'un fichier)
+    int o_largeur, o_hauteur, o_couleur, o_volume, i=0; // Options de jeu (lues d'un fichier)
     int continuer = 1, ok;    //Valeur booleen pour les tests de réussite
     char rep1[11], rep2[4], rep3[4], mess[20], *choix;
 
@@ -90,9 +89,9 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
 
-    berlinP = TTF_OpenFont("berlin.ttf", 12);
-    berlinM = TTF_OpenFont("berlin.ttf", 18);
-    berlinG = TTF_OpenFont("berlin.ttf", 30);
+    info.berlinP = TTF_OpenFont("berlin.ttf", 12);
+    info.berlinM = TTF_OpenFont("berlin.ttf", 18);
+    info.berlinG = TTF_OpenFont("berlin.ttf", 30);
     p_titre.x = ecran->w/2 - 110;
     p_titre.y = 20;
     p_entete.x = ecran->w/2 - 146;
@@ -131,6 +130,10 @@ int main(int argc, char *argv[]){
         mess[i] = ' ';
     }
     mess[19] = '\0';
+
+    info.bleute.r = 190;
+    info.bleute.g = 190;
+    info.bleute.b = 250;
 
     //--------------------------------------------------------------
     // Lancement menu principal
@@ -445,13 +448,13 @@ int main(int argc, char *argv[]){
         }
         SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
 
-        WRITETXT(ecran, "Editeur de Pixia", berlinG, bleute, p_titre);
-        WRITETXT(ecran, "Quel est le nom de votre carte ?", berlinM, bleute, p_entete);
-        WRITETXT(ecran, "              Nom de la carte ?", berlinP, bleute, p_q1);
+        WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
+        WRITETXT(ecran, "Quel est le nom de votre carte ?", info.berlinM, info.bleute, p_entete);
+        WRITETXT(ecran, "              Nom de la carte ?", info.berlinP, info.bleute, p_q1);
 
         //Réponses
-        WRITETXT(ecran, rep1, berlinP, bleute, p_r1);
-        WRITETXT(ecran, mess, berlinP, bleute, p_q3);
+        WRITETXT(ecran, rep1, info.berlinP, info.bleute, p_r1);
+        WRITETXT(ecran, mess, info.berlinP, info.bleute, p_q3);
 
         SDL_Flip(ecran);
 
@@ -591,14 +594,14 @@ int main(int argc, char *argv[]){
         }
         SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
 
-        WRITETXT(ecran, "Editeur de Pixia", berlinG, bleute, p_titre);
-        WRITETXT(ecran, "Quelle sera la taille de votre carte ?", berlinM, bleute, p_entete);
-        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", berlinP, bleute, p_q1);
-        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", berlinP, bleute, p_q2);
+        WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
+        WRITETXT(ecran, "Quelle sera la taille de votre carte ?", info.berlinM, info.bleute, p_entete);
+        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
+        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
 
         //Réponses
-        WRITETXT(ecran, rep2, berlinP, bleute, p_r3);
-        WRITETXT(ecran, rep3, berlinP, bleute, p_r2);
+        WRITETXT(ecran, rep2, info.berlinP, info.bleute, p_r3);
+        WRITETXT(ecran, rep3, info.berlinP, info.bleute, p_r2);
 
         SDL_Flip(ecran);
         SDL_Delay(10);
@@ -606,18 +609,18 @@ int main(int argc, char *argv[]){
     }
 
     //Récupération des tailles données
-    sscanf(rep2, "%d", &hauteur);
-    sscanf(rep3, "%d", &largeur);
+    sscanf(rep2, "%d", &info.hauteur);
+    sscanf(rep3, "%d", &info.largeur);
 
     ok = 0;
 
     //Verification de respect des limites
-    if(hauteur>50 || hauteur<10){
-        hauteur = 20;
+    if(info.hauteur>50 || info.hauteur<10){
+        info.hauteur = 20;
         ok = 1;
     }
-    if(largeur>100 || largeur<10){
-        largeur = 40;
+    if(info.largeur>100 || info.largeur<10){
+        info.largeur = 40;
         ok = 1;
     }
 
@@ -625,41 +628,42 @@ int main(int argc, char *argv[]){
     if(ok){
         SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
 
-        WRITETXT(ecran, "Editeur de Pixia", berlinG, bleute, p_titre);
-        WRITETXT(ecran, "--> MAL RENSEIGNE [5]<--", berlinM, bleute, p_entete);
-        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", berlinP, bleute, p_q1);
-        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", berlinP, bleute, p_q2);
+        WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [5]<--", info.berlinM, info.bleute, p_entete);
+        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
+        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
 
         //Réponses
-        WRITETXT(ecran, "valeur par defaut(20)", berlinP, bleute, p_r3);
-        WRITETXT(ecran, "valeur par defaut(40)", berlinP, bleute, p_r2);
+        WRITETXT(ecran, "valeur par defaut(20)", info.berlinP, info.bleute, p_r3);
+        WRITETXT(ecran, "valeur par defaut(40)", info.berlinP, info.bleute, p_r2);
         SDL_Flip(ecran);
         SDL_Delay(1000);
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [4]<--  ", berlinM, bleute, p_entete);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [4]<--  ", info.berlinM, info.bleute, p_entete);
         SDL_Flip(ecran);
         SDL_Delay(1000);
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [3]<--  ", berlinM, bleute, p_entete);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [3]<--  ", info.berlinM, info.bleute, p_entete);
         SDL_Flip(ecran);
         SDL_Delay(1000);
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [2]<--  ", berlinM, bleute, p_entete);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [2]<--  ", info.berlinM, info.bleute, p_entete);
         SDL_Flip(ecran);
         SDL_Delay(1000);
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [1]<--  ", berlinM, bleute, p_entete);
+        WRITETXT(ecran, "--> MAL RENSEIGNE [1]<--  ", info.berlinM, info.bleute, p_entete);
         SDL_Flip(ecran);
         SDL_Delay(1000);
     }
 
     ///TODO : SUITE
+    editer(ecran, info);
 
     // Suppression de mémoire et stop module
 
-    TTF_CloseFont(berlinP);
-    TTF_CloseFont(berlinM);
-    TTF_CloseFont(berlinG);
+    TTF_CloseFont(info.berlinP);
+    TTF_CloseFont(info.berlinM);
+    TTF_CloseFont(info.berlinG);
 
     TTF_Quit();
 

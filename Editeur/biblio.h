@@ -32,9 +32,23 @@ This file is part of Pixia.
 #define BIBLIO_H_INCLUDED
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 
 // Elements constituant le terrain
 typedef enum {WATER, GRASS, FOREST, MOUNTAIN, FIELD, HOUSE, SMALLTOWER, BIGTOWER, SAWMILL} GroundTile;
+
+/**
+	Infos
+*/
+typedef struct {
+	int hauteur;				// Hauteur du terrain
+	int largeur;				// Largeur du terrain
+	char *nom; 	            // nom de la carte
+	TTF_Font *berlinP;
+	TTF_Font *berlinM;
+	TTF_Font *berlinG;
+	SDL_Color bleute;
+} Info;
 
 /**
 	Terrain de jeu
