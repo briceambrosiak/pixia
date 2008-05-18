@@ -1,0 +1,13 @@
+#summary About Pixia
+#labels Featured
+
+= Introduction =
+
+Brice Ambrosiak and I created this game for ESIAL's project.
+Pixia is a new game where you will be able to developp a population, and make it growing until being the biggest one.
+But there are many dangerous monsters whose want to destroy your work...
+
+
+= Details =
+
+Incomming
