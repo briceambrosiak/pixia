@@ -4,4 +4,4 @@
 # profondeur des couleurs (en bits)
 32
 # volume (en pourcentage)
-0
+100

@@ -6,6 +6,24 @@
 
 	Date : 18/03/08
 	Author : Gaétan Schmitt, Brice Ambrosiak
+
+	Copyright 2008 Gaétan SCHMITT
+
+This file is part of Pixia.
+
+    Pixia is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    Pixia is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Pixia; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #include <stdio.h>
@@ -45,6 +63,7 @@ char optionsLoad(int *larg, int *haut, int *coul, int *volume)
     //------------------------------------------------------------
     //Parcours du fichier
     i = 0;
+    caract = ~EOF;
     while(caract != EOF){
         caract = fgetc(fichier);
         if(caract == '#') // Ignore la ligne
@@ -91,7 +110,6 @@ char optionsSave(int larg, int haut, int coul, int volume)
     //Déclarations-----------------------------------------------
 
     FILE* fichier;
-    int caract, i;
     char ok = 1;
 
     //----------------------------------------------------------
@@ -105,12 +123,12 @@ char optionsSave(int larg, int haut, int coul, int volume)
     //------------------------------------------------------------
     // Ecriture du fichier
     fprintf(fichier, "# résolution : hauteur puis largeur\n");
-    fprintf(fichier, "%ld\n", larg);
-    fprintf(fichier, "%ld\n", haut);
+    fprintf(fichier, "%d\n", larg);
+    fprintf(fichier, "%d\n", haut);
     fprintf(fichier, "# profondeur des couleurs (en bits)\n");
-    fprintf(fichier, "%ld\n", coul);
+    fprintf(fichier, "%d\n", coul);
     fprintf(fichier, "# volume (en pourcentage)\n");
-    fprintf(fichier, "%ld\n", volume);
+    fprintf(fichier, "%d\n", volume);
 
     fclose(fichier);
 
