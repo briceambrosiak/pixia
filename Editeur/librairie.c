@@ -148,27 +148,125 @@ void optionsSaveDefault()
 	optionsSave(1024, 768, 32, 100);
 }
 
-Map getMap(int larg, int haut)
+Map getMap(int width, int height, char* name)
 {
     //DECLARATION---------------------
-    int height, width;
+    int i;
 	Map map;
 	Ground ground;
 	//------------------------------
 
-    height = 80;
-    width = 160;
-    map.name = "Difficil";
+    map.name = name;
 
 	ground.height = height;
 	ground.width = width;
-	//ground.ground = malloc(ground.height * ground.width * sizeof(int));
+	ground.ground = malloc(ground.height * ground.width * sizeof(int));
 
-	map.entities = NULL;
+    map.entities = NULL;
 	map.ground = ground;
+
+    for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        map.ground.ground[i] = 1;
+	}
 
 	return map;
 }
+
+/**
+	Libère la mémoire utilisée par une map
+*/
+void freeMap(Map map)
+{
+	free(map.ground.ground);
+}
+
+
+/**
+	Charge un terrain de jeu à partir d'un nom de fichier
+*/
+Map loadMap(char* filename)
+{
+	FILE* file;
+	Map map;
+	int i = 0;
+
+	file = fopen(filename, "r");
+
+	// Si impossible d'ouvrir le fichier
+	if (file == NULL)
+        fprintf(stderr, "Can't load map @ map.c");
+
+    // Lecture infos terrain
+    //fread(&map.ground.width, sizeof(int), 1, file);
+    //fread(&map.ground.height, sizeof(int), 1, file);
+    //fscanf(fichier, "%ld %ld %ld", &score[0], &score[1], &score[2]);
+    fscanf(file, "<%d>", &map.ground.width);
+    fscanf(file, "<%d>", &map.ground.height);
+
+
+    //map.ground.ground = malloc(map.ground.width * map.ground.height * sizeof(int));
+    map.ground.ground = malloc(map.ground.width * map.ground.height * sizeof(int));
+
+    // Lecture tiles terrain
+	for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        //fread(&map.ground.ground[i], sizeof(int), 1, file);
+        fscanf(file, "[%d]\n", &map.ground.ground[i]);
+	}
+
+	fclose(file);
+
+	return map;
+}
+
+/**
+	Sauvegarde la carte passée en paramètre dans le fichier spécifié
+*/
+int saveMap(Map map, char* filename)
+{
+    //DECLARATION------------------------
+	FILE* file;
+	int i = 0, continuer=1;
+	char nom[20];
+	//--------------------------------------------------
+
+	while(continuer){
+	    if(filename[i] != '\0'){
+            nom[i] = filename[i];
+            i++;
+	    }
+        else
+            continuer=0;
+	}
+	nom[i] = '.';
+	nom[i+1] = 'm';
+	nom[i+2] = 'a';
+	nom[i+3] = 'p';
+	nom[i+4] = '\0';
+
+	file = fopen(nom, "w+");
+
+	// Si impossible d'écrire le fichier
+	if (file == NULL) return -1;
+
+	// Sauvegarde terrain
+
+    // Ecriture infos terrain
+    //fwrite(&map.ground.width, sizeof(int), 1, file);
+    //fwrite(&map.ground.height, sizeof(int), 1, file);
+    fprintf(file, "<%d>", map.ground.width);
+    fprintf(file, "<%d>", map.ground.height);
+
+	// Ecriture tiles terrain
+	for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        //fwrite(&map.ground.ground[i], sizeof(int), 1, file);
+        fprintf(file, "[%d]\n", map.ground.ground[i]);
+	}
+
+	fclose(file);
+
+	return 1;
+}
+
 
 
 

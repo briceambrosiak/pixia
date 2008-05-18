@@ -56,7 +56,7 @@ typedef struct {
 typedef struct {
 	int height;				// Hauteur du terrain
 	int width;				// Largeur du terrain
-	GroundTile *ground; 	// Tableau à 2 dimensions
+	int *ground; 	// Tableau à 2 dimensions
 } Ground;
 
 /**
