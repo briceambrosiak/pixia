@@ -1,4 +1,4 @@
-#summary About Pixia
+#summary Our Project
 #labels Featured
 
 = Introduction =
