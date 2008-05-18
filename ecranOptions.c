@@ -6,6 +6,24 @@
 
 	Date : 20/03/08
 	Author : Gaétan Schmitt, Brice Ambrosiak
+
+	Copyright 2008 Gaétan SCHMITT
+
+This file is part of Pixia.
+
+    Pixia is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    Pixia is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Pixia; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #include <stdlib.h>
@@ -18,6 +36,7 @@
 #include "constants.h"
 
 #include "ecranOptions.h"
+#include "options.h"
 
 /**
 	Affiche l'écran d'options
@@ -192,9 +211,9 @@ char boucleOp(SDL_Surface *ecran,
                     SDL_Rect *p_actif){
     //---DECLARATION---------------------------------------------------
     SDL_Surface *actif;
-    char continuer=1, select=0, ok, reso, coul, vol;
+    int continuer=1, select=0, ok, reso, coul, vol;
     int o_largeur, o_hauteur, o_couleur, o_volume;
-    SDL_Rect p_curseur, p_resoOk, p_coulOk, p_volOk, p_actOk;
+    SDL_Rect p_resoOk, p_coulOk, p_volOk, p_actOk;
     SDL_Event event;
     FSOUND_SAMPLE *clic;
 
@@ -344,6 +363,8 @@ char boucleOp(SDL_Surface *ecran,
                             else
                                 vol++;
                         break;
+                    default:
+                        break;
                 }
                 break;
         }
@@ -371,6 +392,8 @@ char boucleOp(SDL_Surface *ecran,
         case 2:
             o_largeur = 800;
             o_hauteur = 600;
+            break;
+        default:
             break;
     }
     if(coul==0)
