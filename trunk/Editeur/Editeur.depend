@@ -12,12 +12,12 @@
 	"biblio.h"
 	"carte.h"
 
-1211071133 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.h
+1211098499 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.h
 	"biblio.h"
 
-1211068371 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\constants.h
+1211098498 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\constants.h
 
-1211071102 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.c
+1211098499 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\librairie.c
 	<stdlib.h>
 	<stdio.h>
 	"librairie.h"
@@ -34,13 +34,13 @@
 	"librairie.h"
 	"constants.h"
 
-1211069741 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\biblio.h
+1211098499 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\biblio.h
 	<SDL/SDL.h>
 
-1211069523 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.c
+1211098498 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.c
 	<stdlib.h>
 	<stdio.h>
 	"carte.h"
 
-1211069494 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
+1211098499 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
 
