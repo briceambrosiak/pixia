@@ -3,23 +3,32 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="Editeur" />
-		<Option pch_mode="0" />
+		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="default">
-				<Option output="Editeur.exe" prefix_auto="0" extension_auto="0" />
+			<Target title="Debug">
+				<Option output="bin\Debug\Editeur" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
 				<Option type="0" />
 				<Option compiler="gcc" />
-				<Option projectCompilerOptionsRelation="0" />
-				<Option projectLinkerOptionsRelation="0" />
 				<Compiler>
-					<Add option="-O3" />
-					<Add option="-Wall" />
+					<Add option="-g" />
 				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\Editeur" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-O3" />
 			<Add option="-Wall" />
 			<Add directory="D:\Programmes\CodeBlocks\SDL-1.2.12\include" />
 		</Compiler>
@@ -32,7 +41,6 @@
 			<Add library="winmm" />
 			<Add library="dxguid" />
 			<Add library="D:\Programmes\CodeBlocks\mingw32\lib\SDL_ttf.lib" />
-			<Add library="D:\Programmes\CodeBlocks\mingw32\lib\SDL_image.lib" />
 			<Add directory="D:\Programmes\CodeBlocks\SDL-1.2.12\lib" />
 		</Linker>
 		<Unit filename="biblio.h" />
@@ -46,7 +54,7 @@
 		</Unit>
 		<Unit filename="librairie.h" />
 		<Unit filename="main.c">
-			<Option compilerVar="CPP" />
+			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ressource.rc">
 			<Option compilerVar="WINDRES" />

@@ -39,7 +39,13 @@ char optionsSave(int larg, int haut, int coul, int volume);
 
 void optionsSaveDefault();
 
-Map getMap(int larg, int haut);
+Map getMap(int width, int height, char* name);
+
+void freeMap(Map map);
+
+Map loadMap(char* filename);
+
+int saveMap(Map map, char* filename);
 
 
 #endif // LIBRAIRIE_H_INCLUDED
