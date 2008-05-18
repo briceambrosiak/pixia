@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
 1211043216 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\ressource.rc
 
-1211071710 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\main.c
+1211104850 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\main.c
 	"librairie.h"
 	<stdlib.h>
 	<stdio.h>
@@ -34,13 +34,25 @@
 	"librairie.h"
 	"constants.h"
 
-1211098499 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\biblio.h
+1211104598 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\biblio.h
 	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
 
-1211098498 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.c
+1211104960 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.c
 	<stdlib.h>
 	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	<SDL/SDL_image.h>
+	"biblio.h"
+	"constants.h"
 	"carte.h"
 
-1211098499 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
+1211105814 c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
+	<SDL/SDL.h>
+	"biblio.h"
+
+1211105814 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\carte.h
+	<SDL/SDL.h>
+	"biblio.h"
 
