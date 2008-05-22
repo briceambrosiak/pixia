@@ -34,22 +34,6 @@ This file is part of Pixia.
 #include <SDL/SDL_ttf.h>
 #include "map.h"
 
-
-typedef struct S_time S_time;
-struct S_time
-{
-    SDL_Surface *ecran;
-    SDL_Surface *fond;
-    int heures;
-    int minutes;
-    int secondes;
-    TTF_Font *police;
-    SDL_Color color;
-    SDL_Rect pos;
-
-    char total[20];
-};
-
 typedef struct S_base S_base;
 struct S_base
 {
@@ -108,7 +92,23 @@ struct S_base
     SDL_Rect p_c_quitter;
 };
 
+typedef struct S_time S_time;
+struct S_time
+{
+    SDL_Surface *ecran;
+    SDL_Surface *fond;
+    int *p_refresh;
+    int heures;
+    int minutes;
+    int secondes;
+    TTF_Font *police;
+    SDL_Color color;
+    SDL_Rect pos;
 
+    S_base *base;
+
+    char total[20];
+};
 
 // ----------------------------------------------------------------------------
 

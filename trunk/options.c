@@ -32,7 +32,6 @@ This file is part of Pixia.
 #include "constants.h"
 #include "options.h"
 
-
 /**
 	Chargement des options
 */

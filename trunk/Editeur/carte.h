@@ -10,7 +10,7 @@
 
     Copyright 2008 Gaétan SCHMITT
 
-This file is part of Pixia.
+	This file is part of Pixia.
 
     Pixia is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -32,8 +32,12 @@ This file is part of Pixia.
 #define CARTE_H_INCLUDED
 
 #include <SDL/SDL.h>
-#include "biblio.h"
+#include "../map.h"
+#include "../constants.h"
+#include "librairie.h"
 
-void editer(SDL_Surface *ecran, Info info);
+void editer(SDL_Surface *ecran, Info info, int bLoadMap);
+
+int remplacer(int posX, int posY, int choix, Map map);
 
 #endif // CARTE_H_INCLUDED

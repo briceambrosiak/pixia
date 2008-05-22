@@ -84,7 +84,7 @@ void startMap(SDL_Surface *ecran, int spec)
     base.t_mount1 = IMG_Load("images/tiles/mine.png");  //Mauvais tile
     base.t_field1 = IMG_Load("images/tiles/champ.png");
     base.t_house1 = IMG_Load("images/tiles/habitation.png");
-    base.t_stower1 = IMG_Load("images/tiles/tower.png");
+    base.t_stower1 = IMG_Load("images/tiles/tour.png");
     base.t_btower1 = IMG_Load("images/tiles/gtour.png");
     base.t_sawmill1 = IMG_Load("images/tiles/scierie.png");
 
@@ -286,6 +286,7 @@ void startMap(SDL_Surface *ecran, int spec)
     heure.police = base.berlinM;
     heure.color = base.bleute;
     heure.pos = base.p_time;
+    heure.base = &base;
 
     heure.fond = SDL_CreateRGBSurface(SDL_HWSURFACE, 110, 28, 32, 0, 0, 0, 0);
     SDL_FillRect(heure.fond, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));

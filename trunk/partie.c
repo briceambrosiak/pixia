@@ -46,71 +46,19 @@ void startGame(SDL_Surface *ecran, S_base *base, S_time *heure){
     SDL_Surface *tileToBlit;
     SDL_Rect p_tile;
     SDL_TimerID time;
-    int /*tempsActuel = 0, tempsPrecedent = 0,*/ i, j, select = S_NOTHING, ok;
+    int /*tempsActuel = 0, tempsPrecedent = 0,*/ i, j, select = S_NOTHING, ok, decalX=0, decalY=0;
+    int mouse_x = 20, mouse_y = 20;
+    int refresh = 1, refreshTime=0;
 
     //-------------------------------------------------------
     SDL_ShowCursor(SDL_ENABLE);
+    heure->p_refresh = &refresh;
 
     //Premier affichage
     SDL_FillRect(ecran, NULL, COLOR_BLEUTE(ecran));
 
     time = SDL_AddTimer(1000, horloge, heure);
 
-    // Mise à jour des tiles
-    for (i=0 ; i<base->map.ground.height ; i++)
-    {
-        for (j=0 ; j<base->map.ground.width ; j++)
-        {
-            // Calcul position tile
-            p_tile.x = j * TILE_WIDTH - TILE_SPACE*j + (base->map.ground.height-i)*TILE_SPACE;
-            p_tile.y = i * TILE_HEIGHT;
-
-            switch (base->map.ground.ground[i*base->map.ground.height + j])
-            {
-                //WATER, GRASS, FOREST, MOUNTAIN, FIELD, HOUSE, SMALLTOWER, BIGTOWER, SAWMILL
-                case GRASS:
-                    tileToBlit = base->t_grass1;
-                    break;
-
-                case WATER:
-                    tileToBlit = base->t_water1;
-                    break;
-                case FOREST:
-                    tileToBlit = base->t_forest1;
-                    break;
-                case MOUNTAIN:
-                    tileToBlit = base->t_mount1;
-                    break;
-                case FIELD:
-                    tileToBlit = base->t_field1;
-                    break;
-                case HOUSE:
-                    tileToBlit = base->t_house1;
-                    break;
-                case SMALLTOWER:
-                    tileToBlit = base->t_stower1;
-                    break;
-                case BIGTOWER:
-                    tileToBlit = base->t_btower1;
-                    break;
-                case SAWMILL:
-                    tileToBlit = base->t_sawmill1;
-                    break;
-                default:
-                    tileToBlit = base->t_grass1;
-                    break;
-            }
-
-            SDL_BlitSurface(tileToBlit, NULL, ecran, &p_tile);
-        }
-    }
-
-    SDL_BlitSurface(base->hud, NULL, ecran, &(base->p_hud));
-
-    WRITETXT(ecran, "155+", base->berlinM, base->bleute, base->p_food_t);
-    WRITETXT(ecran, "155=", base->berlinM, base->bleute, base->p_wood_t);
-    WRITETXT(ecran, "155-", base->berlinM, base->bleute, base->p_rock_t);
-    WRITETXT(ecran, "546+++", base->berlinM, base->bleute, base->p_people_t);
     WRITETXT(ecran, "0:00:00", base->berlinM, base->bleute, base->p_time);
 
     SDL_Flip(ecran);
@@ -121,6 +69,10 @@ void startGame(SDL_Surface *ecran, S_base *base, S_time *heure){
                 case SDL_QUIT:
                     continuer = 0;
                     break;
+                case SDL_MOUSEMOTION:
+					mouse_x = event.motion.x;
+					mouse_y = event.motion.y;
+					break;
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym){
                         case SDLK_ESCAPE:
@@ -129,8 +81,7 @@ void startGame(SDL_Surface *ecran, S_base *base, S_time *heure){
                             SDL_BlitSurface(base->cadr_menu, NULL, ecran, &base->p_c_menu);
                             break;
                         case SDLK_a:
-                            SDL_BlitSurface(base->cadr_quitter, NULL, ecran, &base->p_c_quitter);
-                            SDL_Flip(ecran);
+                            SDL_BlitSurface(base->cadr_quitter, NULL, base->hud, &base->p_c_quitter);
                             ok = 0;
                             while(ok==0){
                                 while(SDL_PollEvent(&event)){
@@ -174,22 +125,102 @@ void startGame(SDL_Surface *ecran, S_base *base, S_time *heure){
             }
         }
 
-        if(event.motion.x > base->p_menu.x+1 &&
-            event.motion.x < base->p_menu.x+42 &&
-            event.motion.y > base->p_menu.y &&
-            event.motion.y < base->p_menu.y+54){
-            SDL_BlitSurface(base->ico_menuA, NULL, ecran, &base->p_menu);
-            select = S_MENU;
+        if(mouse_x < 5) {
+            decalX += MOVE_OFFSET;
+            decalX = min((base->map.ground.width*TILE_WIDTH)/2+ecran->w/2-(base->map.ground.width*TILE_WIDTH)/2, decalX+MOVE_OFFSET);
+            refresh = 1;
         }
-        else{
-            if(select == S_MENU){
-                select = S_NOTHING;
-                SDL_BlitSurface(base->ico_menu, NULL, ecran, &base->p_menu);
+        else if(mouse_x > (ecran->w)-5) {
+            decalX = max(-(base->map.ground.width*TILE_WIDTH)/2+ecran->w/2-(base->map.ground.width*TILE_WIDTH)/2, decalX-MOVE_OFFSET);
+            refresh = 1;
+        }
+        else if(mouse_y > ecran->h-5) {
+            decalY = max(-(base->map.ground.height*TILE_HEIGHT)/2+ecran->h/2-(base->map.ground.height*TILE_WIDTH)/2, decalY-MOVE_OFFSET);
+            refresh = 1;
+        }
+        else if(mouse_y < 5) {
+			decalY = min((base->map.ground.height*TILE_HEIGHT)/2+ecran->h/2, decalY+MOVE_OFFSET);
+            refresh = 1;
+        }
+
+        if(refresh == 1 && (SDL_GetTicks()-refreshTime >= REFRESH_TIME_LIMIT)){
+            SDL_FillRect(ecran, NULL, COLOR_BLEUTE(ecran));
+             // Mise à jour des tiles
+            for (i=0 ; i<base->map.ground.height ; i++)
+            {
+                for (j=0 ; j<base->map.ground.width ; j++)
+                {
+                    // Calcul position tile
+                    p_tile.x = j * (TILE_WIDTH - TILE_SPACE) + (base->map.ground.height-i)*TILE_SPACE + decalX;
+                    p_tile.y = i * TILE_HEIGHT + decalY;
+
+                    switch (base->map.ground.ground[i*base->map.ground.height + j])
+                    {
+                        //WATER, GRASS, FOREST, MOUNTAIN, FIELD, HOUSE, SMALLTOWER, BIGTOWER, SAWMILL
+                        case GRASS:
+                            tileToBlit = base->t_grass1;
+                            break;
+                        case WATER:
+                            tileToBlit = base->t_water1;
+                            break;
+                        case FOREST1:
+                            tileToBlit = base->t_forest1;
+                            fprintf(stdout, "Un arbre : %d, %d", i, j);
+                            break;
+                        case MOUNTAIN:
+                            tileToBlit = base->t_mount1;
+                            break;
+                        case FIELD:
+                            tileToBlit = base->t_field1;
+                            break;
+                        case HOUSE:
+                            tileToBlit = base->t_house1;
+                            break;
+                        case SMALLTOWER:
+                            tileToBlit = base->t_stower1;
+                            break;
+                        case BIGTOWER:
+                            tileToBlit = base->t_btower1;
+                            break;
+                        case SAWMILL:
+                            tileToBlit = base->t_sawmill1;
+                            break;
+                        default:
+                            tileToBlit = base->t_grass1;
+                            break;
+                    }
+
+                    SDL_BlitSurface(tileToBlit, NULL, ecran, &p_tile);
+                }
             }
+
+            if(event.motion.x > base->p_menu.x+1 &&
+                event.motion.x < base->p_menu.x+42 &&
+                event.motion.y > base->p_menu.y &&
+                event.motion.y < base->p_menu.y+54){
+                SDL_BlitSurface(base->ico_menuA, NULL, ecran, &base->p_menu);
+                select = S_MENU;
+            }
+            else{
+                if(select == S_MENU){
+                    select = S_NOTHING;
+                    SDL_BlitSurface(base->ico_menu, NULL, ecran, &base->p_menu);
+                }
+            }
+
+            SDL_BlitSurface(base->hud, NULL, ecran, &(base->p_hud));
+
+            WRITETXT(ecran, "155+", base->berlinM, base->bleute, base->p_food_t);
+            WRITETXT(ecran, "155=", base->berlinM, base->bleute, base->p_wood_t);
+            WRITETXT(ecran, "155-", base->berlinM, base->bleute, base->p_rock_t);
+            WRITETXT(ecran, "546+++", base->berlinM, base->bleute, base->p_people_t);
+
+            SDL_Flip(ecran);
+
+            refresh = 0;
+            refreshTime = SDL_GetTicks();
         }
-
-        SDL_Flip(ecran);
-
+        SDL_Delay(REFRESH_DELAY_TIME);
     }
     SDL_RemoveTimer(time);
 
@@ -217,14 +248,22 @@ Uint32 horloge(Uint32 intervalle, void *param){
     sprintf(heure->total, "%d:%.2d:%.2d", heure->heures, heure->minutes, heure->secondes);
 
     SDL_BlitSurface(heure->fond, NULL, heure->ecran, &heure->pos);
-    WRITETXT(heure->ecran, heure->total, heure->police, heure->color, heure->pos);
+    WRITETXT(heure->base->hud, heure->total, heure->police, heure->color, heure->pos);
 
-    ///TODO : Flip ecran superflu
-    SDL_Flip(heure->ecran);
+    *(heure->p_refresh) = 1;
 
     return intervalle;
 }
 
+int min(int a, int b) {
+	if (a > b) return b;
+	else return a;
+}
+
+int max(int a, int b) {
+	if (a > b) return a;
+	else return b;
+}
 
 
 

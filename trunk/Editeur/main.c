@@ -27,7 +27,6 @@ This file is part of Pixia.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "librairie.h"
 //Includes classiques
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,25 +38,30 @@ This file is part of Pixia.
 #include <SDL/SDL_ttf.h>
 
 //Includes particuliers
-#include "constants.h"
+#include "../constants.h"
+#include "../options.h"
 
-#include "biblio.h"
+#include "librairie.h"
 #include "carte.h"
 
 
 int main(int argc, char *argv[]){
  //--------------DECLARATIONS---------------------------------
+	FILE* fichier = NULL;
     Info info;
     SDL_Event event;
     SDL_Surface *ecran;
     SDL_Rect p_titre, p_entete, p_q1, p_q2, p_q3, p_r1, p_r2, p_r3;
     int o_largeur, o_hauteur, o_couleur, o_volume, i=0; // Options de jeu (lues d'un fichier)
     int continuer = 1, ok;    //Valeur booleen pour les tests de réussite
-    char rep1[11], rep2[4], rep3[4], mess[20], *choix;
+    char rep1[11], rep2[4], rep3[4], mess[20], buffer[128], *choix, char_lu;
 
     //------------------------------------------------------------
     // Chargement des options contenues dans le fichier d'option
+    //fprintf(stdout, FILE_OPTIONS);
+    //fprintf(stdout, "\n");
     ok = optionsLoad(&o_largeur, &o_hauteur, &o_couleur, &o_volume);
+    //fprintf(stdout, FILE_OPTIONS);
     if(ok != 1){
         fprintf(stderr, "Erreur de lecture des options [main.c]");
         exit(EXIT_FAILURE);
@@ -66,15 +70,16 @@ int main(int argc, char *argv[]){
     //-------------------------------------------------------------
     //Initialisation video
     SDL_Init(SDL_INIT_VIDEO);
+	SDL_EnableUNICODE(1);
 
     //-------------------------------------------------------------
     //Initialisation fenêtre
-    SDL_WM_SetIcon(SDL_LoadBMP(FILE_ICON), NULL);               //Icone de fenêtre
+    SDL_WM_SetIcon(SDL_LoadBMP(FILE_EDITOR_ICON), NULL);               //Icone de fenêtre
 
     ecran = SDL_SetVideoMode(o_largeur,o_hauteur,o_couleur,     //Création de l'"écran support"
             SDL_HWSURFACE | SDL_FULLSCREEN | SDL_DOUBLEBUF);
 
-    SDL_WM_SetCaption(GAME_NAME, NULL);                         //Nom de la fenêtre
+    SDL_WM_SetCaption(EDITOR_NAME, NULL);                         //Nom de la fenêtre
 
     //-------------------------------------------------------------
     //Initialisation de la TTF (affichage de texte)
@@ -136,291 +141,34 @@ int main(int argc, char *argv[]){
 
     while(continuer)
     {
-        while(SDL_PollEvent(&event)){       //Boucle d'évènement (tant qu'un évènement au moins est dans la pile)
+		//Boucle d'évènement (tant qu'un évènement au moins est dans la pile)
+        while(SDL_PollEvent(&event))
+        {
             switch(event.type)
             {
                 case SDL_QUIT:
-                    continuer=0;
+                    continuer = 0;
                     break;
 
-                case SDL_KEYUP:
-                    switch(event.key.keysym.sym){
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {
                         case SDLK_ESCAPE:
-                            continuer=0;
+                            continuer = 0;
+                            rep1[0] = 'm';
+                            rep1[1] = 'a';
+                            rep1[2] = 'p';
+                            rep1[3] = '\0';
                             break;
-                        case SDLK_0:
-                            rep1[i] = '0';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_1:
-                            rep1[i] = '1';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_2:
-                            rep1[i] = '2';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_3:
-                            rep1[i] = '3';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_4:
-                            rep1[i] = '4';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_5:
-                           rep1[i] = '5';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_6:
-                            rep1[i] = '6';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_7:
-                            rep1[i] = '7';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_8:
-                            rep1[i] = '8';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_9:
-                           rep1[i] = '9';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_a:
-                           rep1[i] = 'q';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_z:
-                           rep1[i] = 'w';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_e:
-                           rep1[i] = 'e';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_r:
-                           rep1[i] = 'r';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_t:
-                           rep1[i] = 't';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_y:
-                           rep1[i] = 'y';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_u:
-                           rep1[i] = 'u';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_i:
-                           rep1[i] = 'i';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_o:
-                           rep1[i] = 'o';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_p:
-                           rep1[i] = 'p';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_q:
-                           rep1[i] = 'a';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_s:
-                           rep1[i] = 's';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_d:
-                           rep1[i] = 'd';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_f:
-                           rep1[i] = 'f';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_g:
-                           rep1[i] = 'g';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_h:
-                           rep1[i] = 'h';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_j:
-                           rep1[i] = 'j';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_k:
-                           rep1[i] = 'k';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_l:
-                           rep1[i] = 'l';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_w:
-                           rep1[i] = 'z';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_x:
-                           rep1[i] = 'x';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_c:
-                           rep1[i] = 'c';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_v:
-                           rep1[i] = 'v';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_b:
-                           rep1[i] = 'b';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_n:
-                           rep1[i] = 'n';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
-                        case SDLK_SEMICOLON:
-                           rep1[i] = 'm';
-                            if(i<9){
-                                i++;
-                                rep1[i] = '_';
-                            }
-                            break;
+
                         case SDLK_RETURN:
-                            if(i>0)
+                            if(i > 0)
                                 continuer = 0;
                             else{
-                                mess[0] = 'N';
-                                mess[1] = 'o';
-                                mess[2] = 'm';
-                                mess[3] = ' ';
-                                mess[4] = 'i';
-                                mess[5] = 'n';
-                                mess[6] = 'v';
-                                mess[7] = 'a';
-                                mess[8] = 'l';
-                                mess[9] = 'i';
-                                mess[10] = 'd';
-                                mess[11] = 'e';
-                                mess[12] = '.';
-                                mess[13] = '.';
-                                mess[14] = '.';
+                            	strcpy(mess, "Nom invalide...");
                             }
                             break;
+
                         case SDLK_BACKSPACE:
                             if(i>0){
                                 rep1[i] = ' ';
@@ -428,15 +176,29 @@ int main(int argc, char *argv[]){
                                 rep1[i] = '_';
                             }
                             break;
+
                         default:
+							// Si c'est un caractère Unicode ASCII, on a directement sa valeur ASCII
+							if ( (event.key.keysym.unicode & 0xFF80) == 0 )
+							{
+								char_lu = event.key.keysym.unicode & 0x7F;
+
+								if (char_lu >= '0' && char_lu <= 'z')
+								{
+									rep1[i] = char_lu;
+									if(i < 9) {
+										i++;
+										rep1[i] = '_';
+									}
+								}
+							}
+							else {
+								// Caractère unicode non-ASCII
+							}
                             break;
                     }
                     break;
 
-                case SDL_MOUSEMOTION:
-                    break;
-                case SDL_MOUSEBUTTONUP:
-                    break;
                 default:
                     break;
             }
@@ -457,205 +219,160 @@ int main(int argc, char *argv[]){
 
     }
 
-    rep1[i]='\0';
-
-    continuer = 1;
-    i = 0;
-    choix = rep2;
-
-    while(continuer)
-    {
-        while(SDL_PollEvent(&event)){       //Boucle d'évènement (tant qu'un évènement au moins est dans la pile)
-            switch(event.type)
-            {
-                case SDL_QUIT:
-                    continuer=0;
-                    break;
-
-                case SDL_KEYUP:
-                    switch(event.key.keysym.sym){
-                        case SDLK_ESCAPE:
-                            continuer=0;
-                            break;
-                        case SDLK_0:
-                            choix[i] = '0';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_1:
-                            choix[i] = '1';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_2:
-                            choix[i] = '2';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_3:
-                            choix[i] = '3';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_4:
-                            choix[i] = '4';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_5:
-                            choix[i] = '5';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_6:
-                            choix[i] = '6';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_7:
-                            choix[i] = '7';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_8:
-                            choix[i] = '8';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_9:
-                            choix[i] = '9';
-                            if(i<2){
-                                i++;
-                                choix[i] = '_';
-                            }
-                            break;
-                        case SDLK_RETURN:
-                            if(choix==rep2){
-                                if(i<2){
-                                    choix[1] = ' ';
-                                }
-                                if(i<3 && choix[2] == '_'){
-                                    choix[2] = ' ';
-                                }
-                                choix = rep3;
-                                i = 0;
-                                choix[0] = '_';
-                            }
-                            else if(choix==rep3){
-                                continuer = 0;
-                            }
-                            break;
-                        case SDLK_BACKSPACE:
-                            if(i>0){
-                                choix[i] = ' ';
-                                i--;
-                                choix[i] = '_';
-                            }
-                            else if(i==0 && choix==rep3){
-                                choix[0] = ' ';
-                                choix = rep2;
-                                i = 2;
-                                choix[2] = '_';
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-
-                case SDL_MOUSEMOTION:
-                    break;
-                case SDL_MOUSEBUTTONUP:
-                    break;
-                default:
-                    break;
-            }
-        }
-        SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
-
-        WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
-        WRITETXT(ecran, "Quelle sera la taille de votre carte ?", info.berlinM, info.bleute, p_entete);
-        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
-        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
-
-        //Réponses
-        WRITETXT(ecran, rep2, info.berlinP, info.bleute, p_r3);
-        WRITETXT(ecran, rep3, info.berlinP, info.bleute, p_r2);
-
-        SDL_Flip(ecran);
-        SDL_Delay(10);
-
-    }
-
-    //Récupération des tailles données
-    sscanf(rep2, "%d", &info.hauteur);
-    sscanf(rep3, "%d", &info.largeur);
-
-    ok = 0;
-
-    //Verification de respect des limites
-    if(info.hauteur>50 || info.hauteur<10){
-        info.hauteur = 20;
-        ok = 1;
-    }
-    if(info.largeur>100 || info.largeur<10){
-        info.largeur = 40;
-        ok = 1;
-    }
+    rep1[i] = '\0';
 
     info.nom = rep1;
+    sprintf(info.nom, "%s.map", info.nom); // Rajoute .map
 
-    //Par defaut si mal renseigne
-    if(ok){
-        SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
+    // Essaie d'ouvrir le fichier en lecture. Si NULL: fichier inexistant; Sinon: charge la map
+	fichier = fopen(info.nom, "r");
+	if (fichier != NULL) {
+		editer(ecran, info, 1);
+	}
+	else
+	{
 
-        WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
-        WRITETXT(ecran, "--> MAL RENSEIGNE [5]<--", info.berlinM, info.bleute, p_entete);
-        WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
-        WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
+		continuer = 1;
+		i = 0;
+		choix = rep2;
 
-        //Réponses
-        WRITETXT(ecran, "valeur par defaut(20)", info.berlinP, info.bleute, p_r3);
-        WRITETXT(ecran, "valeur par defaut(40)", info.berlinP, info.bleute, p_r2);
-        SDL_Flip(ecran);
-        SDL_Delay(1000);
+		while(continuer)
+		{
+			//Boucle d'évènement (tant qu'un évènement au moins est dans la pile)
+			while(SDL_PollEvent(&event))
+			{
+				switch(event.type)
+				{
+					case SDL_QUIT:
+						continuer=0;
+						break;
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [4]<--  ", info.berlinM, info.bleute, p_entete);
-        SDL_Flip(ecran);
-        SDL_Delay(1000);
+					case SDL_KEYDOWN:
+						switch(event.key.keysym.sym)
+						{
+							case SDLK_ESCAPE:
+								continuer=0;
+								break;
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [3]<--  ", info.berlinM, info.bleute, p_entete);
-        SDL_Flip(ecran);
-        SDL_Delay(1000);
+							case SDLK_RETURN:
+								if(choix==rep2){
+									if(i<2){
+										choix[1] = ' ';
+									}
+									if(i<3 && choix[2] == '_'){
+										choix[2] = ' ';
+									}
+									choix = rep3;
+									i = 0;
+									choix[0] = '_';
+								}
+								else if(choix==rep3){
+									continuer = 0;
+								}
+								break;
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [2]<--  ", info.berlinM, info.bleute, p_entete);
-        SDL_Flip(ecran);
-        SDL_Delay(1000);
+							case SDLK_BACKSPACE:
+								if(i>0){
+									choix[i] = ' ';
+									i--;
+									choix[i] = '_';
+								}
+								else if(i==0 && choix==rep3){
+									choix[0] = ' ';
+									choix = rep2;
+									i = 2;
+									choix[2] = '_';
+								}
+								break;
 
-        WRITETXT(ecran, "--> MAL RENSEIGNE [1]<--  ", info.berlinM, info.bleute, p_entete);
-        SDL_Flip(ecran);
-        SDL_Delay(1000);
-    }
+							default:
+								// Si c'est un caractère Unicode ASCII, on a directement sa valeur ASCII
+								if ( (event.key.keysym.unicode & 0xFF80) == 0 )
+								{
+									char_lu = event.key.keysym.unicode & 0x7F;
 
-    editer(ecran, info);
+									if (char_lu >= '0' && char_lu <= '9')
+									{
+										choix[i] = char_lu;
+										if (i < 2) {
+											i++;
+											choix[i] = '_';
+										}
+									}
+								}
+								else {
+									// Caractère unicode non-ASCII
+								}
+
+								break;
+						}
+						break;
+
+					case SDL_MOUSEMOTION:
+						break;
+
+					case SDL_MOUSEBUTTONUP:
+						break;
+
+					default:
+						break;
+				}
+			}
+			SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
+
+			WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
+			WRITETXT(ecran, "Quelle sera la taille de votre carte ?", info.berlinM, info.bleute, p_entete);
+			WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
+			WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
+
+			//Réponses
+			WRITETXT(ecran, rep2, info.berlinP, info.bleute, p_r3);
+			WRITETXT(ecran, rep3, info.berlinP, info.bleute, p_r2);
+
+			SDL_Flip(ecran);
+			SDL_Delay(10);
+
+		}
+
+		//Récupération des tailles données
+		sscanf(rep2, "%d", &info.hauteur);
+		sscanf(rep3, "%d", &info.largeur);
+
+		ok = 0;
+
+		//Verification de respect des limites
+		if(info.hauteur>50 || info.hauteur<10){
+			info.hauteur = 20;
+			ok = 1;
+		}
+		if(info.largeur>100 || info.largeur<10){
+			info.largeur = 40;
+			ok = 1;
+		}
+
+		//Par defaut si mal renseigne
+		if(ok) {
+			SDL_FillRect(ecran, NULL, COLOR_BLACK(ecran));
+
+			WRITETXT(ecran, "Editeur de Pixia", info.berlinG, info.bleute, p_titre);
+			WRITETXT(ecran, "Nombre de cases de hauteur ? (10/50)", info.berlinP, info.bleute, p_q1);
+			WRITETXT(ecran, "Nombre de cases de largeur ? (10/100)", info.berlinP, info.bleute, p_q2);
+
+			//Réponses
+			WRITETXT(ecran, "valeur par defaut(20)", info.berlinP, info.bleute, p_r3);
+			WRITETXT(ecran, "valeur par defaut(40)", info.berlinP, info.bleute, p_r2);
+			SDL_Flip(ecran);
+
+			for (i=ERROR_MSG_DURATION ; i>0 ; i--) {
+				sprintf(buffer, "--> MAL RENSEIGNE [%d]<--  ", i);
+				WRITETXT(ecran, buffer, info.berlinM, info.bleute, p_entete);
+				SDL_Flip(ecran);
+				SDL_Delay(1000);
+			}
+		}
+
+		editer(ecran, info, 0);
+	}
 
     // Suppression de mémoire et stop module
     TTF_CloseFont(info.berlinP);
@@ -664,7 +381,7 @@ int main(int argc, char *argv[]){
 
     TTF_Quit();
 
-    SDL_Quit();         //Cloture de la SDL
+    SDL_Quit(); //Cloture de la SDL
 
     return EXIT_SUCCESS;
 }

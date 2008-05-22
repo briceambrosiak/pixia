@@ -87,7 +87,7 @@ char loopNewGame(SDL_Surface *ecran)
     FSOUND_SAMPLE *clic;
     // Déclarations autres
     char select=B_BACK, ok, son=0, continuer=1, echap=0;
-    int iRes = 0, horSpace = 0, vertSpace = 0;
+    int iRes = 0, horSpace = 0, vertSpace = 0, ancienTemps=0;
 	int posButtons[2][3][4];
 
     enum {RES_800, RES_1024}; // Résolutions disponibles
@@ -155,82 +155,91 @@ char loopNewGame(SDL_Surface *ecran)
     //Boucle de choix
     while(continuer)
     {
-        SDL_WaitEvent(&event);
-        switch(event.type){
-            case SDL_QUIT:
-                continuer=0;
-                break;
+        while(SDL_PollEvent(&event)){
+            switch(event.type){
+                case SDL_QUIT:
+                    continuer=0;
+                    break;
 
-            case SDL_KEYUP:
-                switch(event.key.keysym.sym){
-                    case SDLK_ESCAPE:
-                        continuer=0;
-                        echap=1;
-                        break;
-                    default:
-                        break;
+                case SDL_KEYUP:
+                    switch(event.key.keysym.sym){
+                        case SDLK_ESCAPE:
+                            continuer=0;
+                            echap=1;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+
+                case SDL_MOUSEMOTION:
+                    p_curseur.x = event.motion.x;
+                    p_curseur.y = event.motion.y;
+                    break;
+
+                case SDL_MOUSEBUTTONUP:
+                    if(event.button.button==SDL_BUTTON_LEFT && select!=B_BACK)
+                        continuer = 0;
+                        FSOUND_PlaySound(FSOUND_FREE, clic);
+                    break;
+                default:
+                    break;
+            }
+
+            if(SDL_GetTicks()>ancienTemps+REFRESH_TIME_LIMIT){
+                SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
+                SDL_BlitSurface(fondNouvellePart, NULL, ecran, &p_fondNouvellePart);
+                select = B_BACK;
+
+                //Test bouton actif------------
+                if(event.motion.x > (posButtons[iRes][B_EASY][0] + horSpace)
+                && event.motion.x < (posButtons[iRes][B_EASY][1] + horSpace))
+                    if(event.motion.y > (posButtons[iRes][B_EASY][2] + vertSpace)
+                    && event.motion.y < (posButtons[iRes][B_EASY][3] + vertSpace))
+                {
+                        SDL_BlitSurface(facile, NULL, ecran, &p_facile);
+                        select = B_EASY;
+                        if (son!=1){
+                            FSOUND_PlaySound(FSOUND_FREE, clic);
+                            son = 1;
+                        }
                 }
-                break;
 
-            case SDL_MOUSEMOTION:
-                p_curseur.x = event.motion.x;
-                p_curseur.y = event.motion.y;
-                break;
+                if(event.motion.x > (posButtons[iRes][B_NORMAL][0] + horSpace)
+                && event.motion.x < (posButtons[iRes][B_NORMAL][1] + horSpace))
+                    if(event.motion.y > (posButtons[iRes][B_NORMAL][2] + vertSpace)
+                    && event.motion.y < (posButtons[iRes][B_NORMAL][3] + vertSpace))
+                {
+                    SDL_BlitSurface(moyen, NULL, ecran, &p_moyen);
+                    select = B_NORMAL;
+                    if (son!=2){
+                        FSOUND_PlaySound(FSOUND_FREE, clic);
+                        son = 2;
+                    }
+                }
 
-            case SDL_MOUSEBUTTONUP:
-                if(event.button.button==SDL_BUTTON_LEFT && select!=B_BACK)
-                    continuer = 0;
-                    FSOUND_PlaySound(FSOUND_FREE, clic);
-                break;
-            default:
-                break;
+                if(event.motion.x > (posButtons[iRes][B_HARD][0] + horSpace)
+                && event.motion.x < (posButtons[iRes][B_HARD][1] + horSpace))
+                    if(event.motion.y > (posButtons[iRes][B_HARD][2] + vertSpace)
+                    && event.motion.y < (posButtons[iRes][B_HARD][3] + vertSpace))
+                {
+                        SDL_BlitSurface(dur, NULL, ecran, &p_dur);
+                        select = B_HARD;
+                        if (son!=3) {
+                            FSOUND_PlaySound(FSOUND_FREE, clic);
+                            son = 3;
+                        }
+                }
+
+                SDL_BlitSurface(curseur, NULL, ecran, &p_curseur);
+                SDL_Flip(ecran);
+
+                ancienTemps = SDL_GetTicks();
+            }
+            else{
+                SDL_Delay(REFRESH_DELAY_TIME);
+            }
         }
-        SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
-        SDL_BlitSurface(fondNouvellePart, NULL, ecran, &p_fondNouvellePart);
-        select = B_BACK;
-
-        //Test bouton actif------------
-        if(event.motion.x > (posButtons[iRes][B_EASY][0] + horSpace)
-        && event.motion.x < (posButtons[iRes][B_EASY][1] + horSpace))
-            if(event.motion.y > (posButtons[iRes][B_EASY][2] + vertSpace)
-            && event.motion.y < (posButtons[iRes][B_EASY][3] + vertSpace))
-		{
-                SDL_BlitSurface(facile, NULL, ecran, &p_facile);
-				select = B_EASY;
-				if (son!=1){
-					FSOUND_PlaySound(FSOUND_FREE, clic);
-					son = 1;
-				}
-		}
-
-        if(event.motion.x > (posButtons[iRes][B_NORMAL][0] + horSpace)
-		&& event.motion.x < (posButtons[iRes][B_NORMAL][1] + horSpace))
-            if(event.motion.y > (posButtons[iRes][B_NORMAL][2] + vertSpace)
-            && event.motion.y < (posButtons[iRes][B_NORMAL][3] + vertSpace))
-		{
-			SDL_BlitSurface(moyen, NULL, ecran, &p_moyen);
-			select = B_NORMAL;
-			if (son!=2){
-				FSOUND_PlaySound(FSOUND_FREE, clic);
-				son = 2;
-			}
-		}
-
-        if(event.motion.x > (posButtons[iRes][B_HARD][0] + horSpace)
-        && event.motion.x < (posButtons[iRes][B_HARD][1] + horSpace))
-            if(event.motion.y > (posButtons[iRes][B_HARD][2] + vertSpace)
-            && event.motion.y < (posButtons[iRes][B_HARD][3] + vertSpace))
-		{
-                SDL_BlitSurface(dur, NULL, ecran, &p_dur);
-				select = B_HARD;
-				if (son!=3) {
-					FSOUND_PlaySound(FSOUND_FREE, clic);
-					son = 3;
-				}
-		}
-
-        SDL_BlitSurface(curseur, NULL, ecran, &p_curseur);
-        SDL_Flip(ecran);
     }
 
     if(echap == 1) select = B_BACK;
