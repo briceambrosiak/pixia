@@ -32,8 +32,20 @@ This file is part of Pixia.
 
 #include <SDL/SDL.h>
 
+
+// Types
+// ------------------------------------------------------------------
+
+
 // Elements constituant le terrain
-typedef enum {WATER, GRASS, FOREST, MOUNTAIN, FIELD, HOUSE, SMALLTOWER, BIGTOWER, SAWMILL} GroundTile;
+typedef enum {
+//Decors :
+WATER, GWLL, GWLR, GWHL, GWHR, GRASS, FOREST1, FOREST2, FOREST3A, FOREST3B,
+MOUNTAIN1, MOUNTAIN2, MOUNTAIN3, MOUNTAIN4, MINE, RUINS,
+//Entites :
+DINO, HOUSE, SAWMILL, SMALLTOWER, BIGTOWER, MINECAMP, WELL,
+FIELD, SHEEP, GUARDIANS, FIRE, HUMAINS
+} GroundTile; //=>25 Tiles
 
 /**
 	Terrain de jeu
@@ -65,7 +77,13 @@ typedef struct {
 	Entity *entities; 	// Entités (tableau)
 } Map;
 
+
+// Fonctions
+// ------------------------------------------------------------------
+
 Map getMap(int spec);
+
+Map getClearMap(int width, int height, char* name);
 
 void freeMap(Map map);
 

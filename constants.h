@@ -32,10 +32,21 @@ This file is part of Pixia.
 
     // Constantes diverses
     #define GAME_NAME			"Pixia"
+    #define EDITOR_NAME			"Editeur"
+
+    #define ERROR_MSG_DURATION	3
+    #define REFRESH_TIME_LIMIT	15
+    #define REFRESH_DELAY_TIME	1
+    #define MOVE_OFFSET		    40
 
     // Constantes fichiers
-    #define FILE_OPTIONS		"options.txt"
+	#ifdef IN_EDITOR_MODE
+		#define FILE_OPTIONS	"../options.txt"
+	#else
+		#define FILE_OPTIONS	"options.txt"
+	#endif
     #define FILE_ICON			"images/palmier.bmp"
+    #define FILE_EDITOR_ICON	"../images/palmier2.bmp"
     #define FILE_CURSOR_ARROW	"images/curseur2.png"
 
     #define FILE_MUSIC_MENU		"music/piano_rain.mp3"
@@ -72,8 +83,8 @@ This file is part of Pixia.
 
 
     // Constantes couleurs
-    #define COLOR_BLACK(E) 	SDL_MapRGB(E->format, 0, 0, 0)
-    #define COLOR_BLEUTE(E) SDL_MapRGB(E->format, 190, 190, 250)
+    #define COLOR_BLACK(E) 		SDL_MapRGB(E->format, 0, 0, 0)
+    #define COLOR_BLEUTE(E) 	SDL_MapRGB(E->format, 190, 190, 250)
 
     // Constantes tiles
     #define TILE_WIDTH 			38
@@ -81,7 +92,16 @@ This file is part of Pixia.
     #define TILE_SPACE 			10
     #define TILE_BLANK_SPACE 	15
 
-    // Fonctions
 
+    // Fonctions
+	#define WRITETXT(E, M, P, C, PO)\
+    ({\
+		SDL_Surface *texte;\
+		SDL_Color black;\
+		black.r=black.g=black.b=0;\
+		texte = TTF_RenderText_Shaded(P, M, C, black);\
+		SDL_BlitSurface(texte, NULL, E, &PO);\
+		SDL_FreeSurface(texte);\
+    })
 
 #endif

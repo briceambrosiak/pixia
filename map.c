@@ -7,9 +7,9 @@
 	Date : 17/05/08
 	Author : Gaétan Schmitt, Brice Ambrosiak
 
-	Copyright 2008 Gaétan SCHMITT
+	Copyright 2008 Gaétan SCHMITT, Brice Ambrosiak
 
-This file is part of Pixia.
+	This file is part of Pixia.
 
     Pixia is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -79,6 +79,33 @@ Map getMap(int difficulty)
 }
 
 /**
+	Renvoie une map composée uniquement d'herbe
+*/
+Map getClearMap(int width, int height, char* name)
+{
+    //DECLARATION---------------------
+    int i;
+	Map map;
+	Ground ground;
+	//------------------------------
+
+    map.name = name;
+
+	ground.height = height;
+	ground.width = width;
+	ground.ground = malloc(ground.height * ground.width * sizeof(int));
+
+    map.entities = NULL;
+	map.ground = ground;
+
+    for (i=0 ; i<map.ground.width*map.ground.height ; i++){
+        map.ground.ground[i] = GRASS;
+	}
+
+	return map;
+}
+
+/**
 	Libère la mémoire utilisée par une map
 */
 void freeMap(Map map)
@@ -90,6 +117,7 @@ void freeMap(Map map)
 /**
 	Charge un terrain de jeu à partir d'un nom de fichier
 */
+
 Map loadMap(char* filename)
 {
 	FILE* file;
@@ -116,7 +144,7 @@ Map loadMap(char* filename)
     // Lecture tiles terrain
 	for (i=0 ; i<map.ground.width*map.ground.height ; i++){
         //fread(&map.ground.ground[i], sizeof(int), 1, file);
-        fscanf(file, "[%d]\n", &map.ground.ground[i]);
+        fscanf(file, "[%d]\n", (int*)&map.ground.ground[i]);
 	}
 
 	fclose(file);

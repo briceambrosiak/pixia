@@ -12,6 +12,8 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-O3" />
+					<Add option="-W" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -30,6 +32,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-DIN_EDITOR_MODE" />
 			<Add directory="D:\Programmes\CodeBlocks\SDL-1.2.12\include" />
 		</Compiler>
 		<Linker>
@@ -40,15 +43,14 @@
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
-			<Add library="D:\Programmes\CodeBlocks\mingw32\lib\SDL_ttf.lib" />
+			<Add library="SDL_ttf" />
+			<Add library="SDL_image" />
 			<Add directory="D:\Programmes\CodeBlocks\SDL-1.2.12\lib" />
 		</Linker>
-		<Unit filename="biblio.h" />
 		<Unit filename="carte.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="carte.h" />
-		<Unit filename="constants.h" />
 		<Unit filename="librairie.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -59,9 +61,22 @@
 		<Unit filename="ressource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="..\constants.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\constants.h" />
+		<Unit filename="..\map.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\map.h" />
+		<Unit filename="..\options.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\options.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -8,9 +8,9 @@
 
     Par Gaétan SCHMITT et Brice AMBROSIAK
 
-    Copyright 2008 Gaétan SCHMITT
+    Copyright 2008 Gaétan SCHMITT et Brice AMBROSIAK
 
-This file is part of Pixia.
+	This file is part of Pixia.
 
     Pixia is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,24 +28,28 @@ This file is part of Pixia.
 
 */
 
-#include "biblio.h"
+#include "../map.h"
 
 #ifndef LIBRAIRIE_H_INCLUDED
 #define LIBRAIRIE_H_INCLUDED
 
-int optionsLoad(int *larg, int *haut, int *coul, int *volume);
+#include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 
-char optionsSave(int larg, int haut, int coul, int volume);
+/**
+	Infos
+*/
+typedef struct {
+	int hauteur;				// Hauteur du terrain
+	int largeur;				// Largeur du terrain
+	char *nom; 	            // nom de la carte
+	TTF_Font *berlinP;
+	TTF_Font *berlinM;
+	TTF_Font *berlinG;
+	SDL_Color bleute;
+} Info;
 
-void optionsSaveDefault();
-
-Map getMap(int width, int height, char* name);
-
-void freeMap(Map map);
-
-Map loadMap(char* filename);
-
-int saveMap(Map map, char* filename);
-
+int min(int a, int b);
+int max(int a, int b);
 
 #endif // LIBRAIRIE_H_INCLUDED

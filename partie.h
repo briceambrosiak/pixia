@@ -46,4 +46,7 @@ void startGame(SDL_Surface *ecran, S_base *base, S_time *heure);
 
 Uint32 horloge(Uint32 intervalle, void *param);
 
+int min(int a, int b);
+int max(int a, int b);
+
 #endif

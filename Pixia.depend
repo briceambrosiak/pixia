@@ -11,7 +11,7 @@
 	"nouvellePartie.h"
 	"constants.h"
 
-1206577562 c:\documents and settings\anémas\mes documents\code source\pixia\options.h
+1211222940 c:\documents and settings\anémas\mes documents\code source\pixia\options.h
 
 1206702578 c:\documents and settings\anémas\mes documents\code source\pixia\options.c
 	<stdio.h>
@@ -21,7 +21,7 @@
 
 1205929876 c:\documents and settings\anémas\mes documents\code source\pixia\ressources.rc
 
-1209573015 c:\documents and settings\anémas\mes documents\code source\pixia\menu.h
+1211098656 c:\documents and settings\anémas\mes documents\code source\pixia\menu.h
 
 1207309876 c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
 	<stdlib.h>
@@ -49,7 +49,7 @@
 	<SDL/SDL_image.h>
 	<FMOD/fmod.h>
 
-1206654218 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.h
+1211098656 c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.h
 
 1206099132 c:\documents and settings\anémas\mes documents\code source\pixia\boucleop.c
 	<stdio.h>
@@ -81,7 +81,7 @@
 
 1206050431 c:\documents and settings\anémas\mes documents\code source\pixia\boucleop.h
 
-1206637286 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.h
+1211098656 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.h
 
 1206879494 c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
 	<stdlib.h>
@@ -213,7 +213,7 @@
 1206705223 d:\etudes\esial\csh\pixia\constants.c
 	"constants.h"
 
-1211098655 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
+1211370170 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
 
 1206705528 c:\documents and settings\anémas\mes documents\code source\pixia\map.c
 	<stdio.h>
@@ -222,13 +222,13 @@
 	"map.h"
 	"constants.h"
 
-1211039546 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
+1211384609 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
 	<SDL/SDL.h>
 
 1206705224 c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
 	"constants.h"
 
-1209513458 source:c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.c
+1211098656 source:c:\documents and settings\anémas\mes documents\code source\pixia\ecranoptions.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -242,7 +242,7 @@
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
 
-1210796493 source:c:\documents and settings\anémas\mes documents\code source\pixia\main.c
+1211098656 source:c:\documents and settings\anémas\mes documents\code source\pixia\main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -255,13 +255,13 @@
 	"nouvellePartie.h"
 	"constants.h"
 
-1211041378 source:c:\documents and settings\anémas\mes documents\code source\pixia\map.c
+1211227264 source:c:\documents and settings\anémas\mes documents\code source\pixia\map.c
 	<stdlib.h>
 	<stdio.h>
 	"map.h"
 	"constants.h"
 
-1210014097 source:c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
+1211098656 source:c:\documents and settings\anémas\mes documents\code source\pixia\menu.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -270,7 +270,7 @@
 	"constants.h"
 	"menu.h"
 
-1211031355 source:c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
+1211385123 source:c:\documents and settings\anémas\mes documents\code source\pixia\nouvellepartie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -280,7 +280,7 @@
 	"nouvellePartie.h"
 	"chargement.h"
 
-1209517005 source:c:\documents and settings\anémas\mes documents\code source\pixia\options.c
+1211224184 source:c:\documents and settings\anémas\mes documents\code source\pixia\options.c
 	<stdio.h>
 	<stdlib.h>
 	"constants.h"
@@ -291,13 +291,13 @@
 1206705224 source:c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
 	"constants.h"
 
-1211039980 c:\documents and settings\anémas\mes documents\code source\pixia\chargement.h
+1211386217 c:\documents and settings\anémas\mes documents\code source\pixia\chargement.h
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
 	<SDL/SDL_ttf.h>
 	"map.h"
 
-1211041552 source:c:\documents and settings\anémas\mes documents\code source\pixia\chargement.c
+1211386236 source:c:\documents and settings\anémas\mes documents\code source\pixia\chargement.c
 	<stdlib.h>
 	<stdio.h>
 	<FMOD/fmod.h>
@@ -306,7 +306,7 @@
 	"partie.h"
 	"map.h"
 
-1211040456 source:c:\documents and settings\anémas\mes documents\code source\pixia\partie.c
+1211185352 source:c:\documents and settings\anémas\mes documents\code source\pixia\partie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -317,6 +317,111 @@
 	"constants.h"
 	"chargement.h"
 
-1209561106 c:\documents and settings\anémas\mes documents\code source\pixia\partie.h
+1211385690 c:\documents and settings\anémas\mes documents\code source\pixia\partie.h
 	"chargement.h"
+
+1211184886 source:c:\documents and settings\deathtiny\bureau\pixia\chargement.c
+	<stdlib.h>
+	<stdio.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"chargement.h"
+	"partie.h"
+	"map.h"
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\constants.h
+
+1211184468 c:\documents and settings\deathtiny\bureau\pixia\chargement.h
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	"map.h"
+
+1211098654 c:\documents and settings\deathtiny\bureau\pixia\map.h
+	<SDL/SDL.h>
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\partie.h
+	"chargement.h"
+
+1206705224 source:c:\documents and settings\deathtiny\bureau\pixia\constants.c
+	"constants.h"
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\ecranoptions.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"ecranOptions.h"
+	"options.h"
+	<stdio.h>
+	<stdlib.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\ecranoptions.h
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\options.h
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\main.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	<FMOD/fmod.h>
+	"options.h"
+	"menu.h"
+	"ecranOptions.h"
+	"nouvellePartie.h"
+	"constants.h"
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\menu.h
+
+1211098656 c:\documents and settings\deathtiny\bureau\pixia\nouvellepartie.h
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\map.c
+	<stdlib.h>
+	<stdio.h>
+	"map.h"
+	"constants.h"
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\menu.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"menu.h"
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\nouvellepartie.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<FMOD/fmod.h>
+	"constants.h"
+	"nouvellePartie.h"
+	"chargement.h"
+
+1211098656 source:c:\documents and settings\deathtiny\bureau\pixia\options.c
+	<stdio.h>
+	<stdlib.h>
+	"constants.h"
+	"options.h"
+
+1211185352 source:c:\documents and settings\deathtiny\bureau\pixia\partie.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+	<FMOD/fmod.h>
+	"partie.h"
+	"constants.h"
+	"chargement.h"
+
+1205929876 source:c:\documents and settings\deathtiny\bureau\pixia\ressources.rc
 
