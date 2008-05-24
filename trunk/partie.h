@@ -29,15 +29,6 @@ This file is part of Pixia.
 #ifndef DEF_PARTIE
 #define DEF_PARTIE
 
-#define WRITETXT(E, M, P, C, PO)\
-    ({\
-    SDL_Surface *texte;\
-    SDL_Color black = {0, 0, 0};\
-    texte = TTF_RenderText_Shaded(P, M, C, black);\
-    SDL_BlitSurface(texte, NULL, E, &PO);\
-    SDL_FreeSurface(texte);\
-    })
-
 #include "chargement.h"
 
 enum{S_NOTHING, S_MENU};
@@ -45,8 +36,5 @@ enum{S_NOTHING, S_MENU};
 void startGame(SDL_Surface *ecran, S_base *base, S_time *heure);
 
 Uint32 horloge(Uint32 intervalle, void *param);
-
-int min(int a, int b);
-int max(int a, int b);
 
 #endif
