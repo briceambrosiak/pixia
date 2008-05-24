@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="All" />
-	<File name="chargement.c" open="1" top="0" tabpos="1">
-		<Cursor position="10083" topLine="276" />
+	<File name="chargement.c" open="1" top="0" tabpos="3">
+		<Cursor position="16745" topLine="281" />
 	</File>
-	<File name="chargement.h" open="1" top="0" tabpos="2">
-		<Cursor position="2452" topLine="82" />
+	<File name="chargement.h" open="1" top="0" tabpos="4">
+		<Cursor position="1625" topLine="4" />
 	</File>
 	<File name="constants.c" open="0" top="0" tabpos="4">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="constants.h" open="1" top="0" tabpos="6">
-		<Cursor position="1193" topLine="21" />
+	<File name="constants.h" open="0" top="0" tabpos="6">
+		<Cursor position="3271" topLine="81" />
 	</File>
 	<File name="ecranOptions.c" open="0" top="0" tabpos="0">
 		<Cursor position="949" topLine="3" />
@@ -19,38 +19,44 @@
 	<File name="ecranOptions.h" open="0" top="0" tabpos="0">
 		<Cursor position="926" topLine="3" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="3">
+	<File name="engine.c" open="1" top="1" tabpos="6">
+		<Cursor position="7971" topLine="234" />
+	</File>
+	<File name="engine.h" open="1" top="0" tabpos="7">
+		<Cursor position="3769" topLine="90" />
+	</File>
+	<File name="main.c" open="0" top="0" tabpos="3">
 		<Cursor position="720" topLine="144" />
 	</File>
 	<File name="map.c" open="0" top="0" tabpos="18">
 		<Cursor position="5" topLine="0" />
 	</File>
-	<File name="map.h" open="0" top="0" tabpos="9">
-		<Cursor position="424" topLine="58" />
+	<File name="map.h" open="1" top="0" tabpos="5">
+		<Cursor position="1672" topLine="33" />
 	</File>
-	<File name="menu.c" open="1" top="0" tabpos="4">
+	<File name="menu.c" open="0" top="0" tabpos="4">
 		<Cursor position="5803" topLine="129" />
 	</File>
 	<File name="menu.h" open="0" top="0" tabpos="17">
 		<Cursor position="918" topLine="3" />
 	</File>
-	<File name="nouvellePartie.c" open="1" top="0" tabpos="5">
+	<File name="nouvellePartie.c" open="0" top="0" tabpos="5">
 		<Cursor position="7999" topLine="221" />
 	</File>
 	<File name="nouvellePartie.h" open="0" top="0" tabpos="4">
 		<Cursor position="928" topLine="3" />
 	</File>
 	<File name="options.c" open="0" top="0" tabpos="9">
-		<Cursor position="950" topLine="3" />
+		<Cursor position="609" topLine="114" />
 	</File>
 	<File name="options.h" open="0" top="0" tabpos="0">
 		<Cursor position="836" topLine="8" />
 	</File>
-	<File name="partie.c" open="1" top="1" tabpos="7">
-		<Cursor position="9688" topLine="195" />
+	<File name="partie.c" open="1" top="0" tabpos="2">
+		<Cursor position="6741" topLine="35" />
 	</File>
-	<File name="partie.h" open="1" top="0" tabpos="8">
-		<Cursor position="1270" topLine="22" />
+	<File name="partie.h" open="1" top="0" tabpos="1">
+		<Cursor position="1147" topLine="14" />
 	</File>
 	<File name="ressources.rc" open="0" top="0" tabpos="0">
 		<Cursor position="15" topLine="0" />

@@ -213,7 +213,7 @@
 1206705223 d:\etudes\esial\csh\pixia\constants.c
 	"constants.h"
 
-1211370170 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
+1211474641 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
 
 1206705528 c:\documents and settings\anémas\mes documents\code source\pixia\map.c
 	<stdio.h>
@@ -222,7 +222,7 @@
 	"map.h"
 	"constants.h"
 
-1211384609 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
+1211629045 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
 	<SDL/SDL.h>
 
 1206705224 c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
@@ -291,13 +291,13 @@
 1206705224 source:c:\documents and settings\anémas\mes documents\code source\pixia\constants.c
 	"constants.h"
 
-1211386217 c:\documents and settings\anémas\mes documents\code source\pixia\chargement.h
+1211540422 c:\documents and settings\anémas\mes documents\code source\pixia\chargement.h
 	<SDL/SDL.h>
 	<SDL/SDL_image.h>
 	<SDL/SDL_ttf.h>
 	"map.h"
 
-1211386236 source:c:\documents and settings\anémas\mes documents\code source\pixia\chargement.c
+1211543092 source:c:\documents and settings\anémas\mes documents\code source\pixia\chargement.c
 	<stdlib.h>
 	<stdio.h>
 	<FMOD/fmod.h>
@@ -306,7 +306,7 @@
 	"partie.h"
 	"map.h"
 
-1211185352 source:c:\documents and settings\anémas\mes documents\code source\pixia\partie.c
+1211563058 source:c:\documents and settings\anémas\mes documents\code source\pixia\partie.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
@@ -316,8 +316,10 @@
 	"partie.h"
 	"constants.h"
 	"chargement.h"
+	"map.h"
+	"engine.h"
 
-1211385690 c:\documents and settings\anémas\mes documents\code source\pixia\partie.h
+1211563026 c:\documents and settings\anémas\mes documents\code source\pixia\partie.h
 	"chargement.h"
 
 1211184886 source:c:\documents and settings\deathtiny\bureau\pixia\chargement.c
@@ -424,4 +426,14 @@
 	"chargement.h"
 
 1205929876 source:c:\documents and settings\deathtiny\bureau\pixia\ressources.rc
+
+1211628771 c:\documents and settings\anémas\mes documents\code source\pixia\engine.h
+	"SDL/SDL.h"
+	"map.h"
+
+1211563041 source:c:\documents and settings\anémas\mes documents\code source\pixia\engine.c
+	<time.h>
+	<math.h>
+	"engine.h"
+	"map.h"
 

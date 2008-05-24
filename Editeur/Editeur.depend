@@ -11,14 +11,14 @@
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
 
-1211464061 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
+1211483784 c:\documents and settings\anémas\mes documents\code source\pixia\map.h
 	<SDL/SDL.h>
 
 1211474641 c:\documents and settings\anémas\mes documents\code source\pixia\constants.h
 
 1211222940 c:\documents and settings\anémas\mes documents\code source\pixia\options.h
 
-1211228222 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\main.c
+1211474932 source:c:\documents and settings\anémas\mes documents\code source\pixia\editeur\main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>

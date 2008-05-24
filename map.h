@@ -32,7 +32,6 @@ This file is part of Pixia.
 
 #include <SDL/SDL.h>
 
-
 // Types
 // ------------------------------------------------------------------
 
@@ -45,7 +44,13 @@ MOUNTAIN1, MOUNTAIN2, MOUNTAIN3, MOUNTAIN4, MINE, RUINS,
 //Entites :
 DINO, HOUSE, SAWMILL, SMALLTOWER, BIGTOWER, MINECAMP, WELL,
 FIELD, SHEEP, GUARDIANS, FIRE, HUMAINS
-} GroundTile; //=>25 Tiles
+} GroundTile; //=>28 Tiles
+
+typedef enum {
+	E_DINO, E_SMALLTOWER, E_BIGTOWER, E_HOUSE, E_SAWMILL, E_MINECAMP,
+	E_WELL, E_FIELD, E_SHEEP, E_GUARDIANS
+} EntityId;
+typedef enum {S_IDLE, S_MOVING, S_ATTACKING, S_RELOADING, S_SLEEPING} EntityStatus;
 
 /**
 	Terrain de jeu
@@ -57,25 +62,48 @@ typedef struct {
 } Ground;
 
 /**
+	Type d'entité
+*/
+typedef struct {
+	int ID;			// ID unique du type
+	int IDmin;		// ID min de la plage
+	int IDmax;		// ID max de la plage
+
+	int posMax;		// Position max actuelle dans le tableau des entités
+
+	char* name;		// Nom
+	int lifeMax;	// Vie max
+
+	int moveRand;	// Chances-3 qu'il reste sur place [-1 == ne peut pas se déplacer]
+	int attack;		// Puissance d'attaque [-1 == ne peut pas attaquer]
+	int range;		// Distance d'attaque
+	int reloadTime;	// Attente entre 2 attaques
+
+	// SON ?
+	SDL_Surface *tile;	// Tile de l'entité
+} EntityType;
+
+/**
 	Entité
 */
 typedef struct {
-	int x;				// Position x de l'entité
-	int y;				// Position y de l'entité
-	int lifeMax;		// Vie max
-	int life;			// Vie restante
-	SDL_Surface *tile; 	// Image de l'entité
+	int ID;					// ID de l'entité
+	EntityId typeID;		// ID unique identifiant le type
+	int x, y;				// Position de l'entité
+	int life;				// Vie restante
+	int reload;				// Temps de rechargement restant
+	//EntityStatus lastStatus;// Dernier status
+	//EntityStatus status;	// Status actuel de l'entité (déplacement, attaque, ...)
 } Entity;
-
 
 /**
 	Carte (terrain + entités)
 */
-typedef struct {
+typedef struct{
 	char* name;			// Nom de la carte
 	Ground ground;		// Terrain
 	Entity *entities; 	// Entités (tableau)
-} Map;
+}Map;
 
 
 // Fonctions
